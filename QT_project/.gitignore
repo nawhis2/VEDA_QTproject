@@ -4,6 +4,7 @@
 *.autosave
 
 # Build folder (manual or shadow build)
+build/
 build-*/
 *.pro.user
 
