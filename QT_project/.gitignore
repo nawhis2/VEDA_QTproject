@@ -1,0 +1,14 @@
+# Qt Creator
+*.user
+*.user.*
+*.autosave
+
+# Build folder (manual or shadow build)
+build-*/
+*.pro.user
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.exe
+*.dll
