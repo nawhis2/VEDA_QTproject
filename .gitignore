@@ -1,0 +1,30 @@
+# 빌드 디렉토리 무시
+build-*/
+*-build*/
+*-Debug/
+*-Release/
+Qt_6_*/                 # Qt Creator가 만든 플랫폼별 빌드 폴더
+
+# Qt Creator 설정
+*.user
+*.user.*
+*.pro.user
+*.autosave
+
+# 빌드 산출물
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.dylib
+
+# macOS, Windows 불필요 파일
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 임시 파일
+*~
+*.bak
