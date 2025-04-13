@@ -1,9 +1,0 @@
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/QT_project.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/edit_cache.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/rebuild_cache.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/list_install_components.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/install.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/install/local.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/install/strip.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/QT_project_autogen_timestamp_deps.dir
-/Users/sihwan/VEDA_QTproject/QT_project/build/Qt_6_8_3_for_macOS-Debug/CMakeFiles/QT_project_autogen.dir
