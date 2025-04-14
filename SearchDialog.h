@@ -23,7 +23,7 @@ class SearchDialog : public QDialog
     Q_OBJECT
 
 public:
-    SearchDialog(const QList<Contact>& allContacts, QWidget* parent = nullptr);
+    SearchDialog(const QList<Contact*>& allContacts, QWidget* parent = nullptr);
 
 signals:
     void contactSelected(const QString &name);
@@ -39,7 +39,7 @@ private:
     // QPushButton*    searchButton;
     QTableView* resultView;
     QStandardItemModel* resultModel;
-    QList<Contact> allContacts;
+    QList<Contact*> allContacts;
 
 };
 

@@ -6,6 +6,9 @@
 #include <QDateEdit>
 #include <QList>
 #include <QTableView>
+#include <QTreeView>
+
+#include "Contact.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -13,22 +16,11 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-struct Contact
-{
-    int         id;
-    QString     name;
-    QString     phone;
-    // QDate       birthday;
-    QString     email;
-    QString     SNS; // insta
-    // QString     Memo;
-};
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
-    QList<Contact> allContacts;
+    ContactModel*  model;
+    QTreeView*     treeView;
 
 public:
     MainWindow(QWidget *parent = nullptr);

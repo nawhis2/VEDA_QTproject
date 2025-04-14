@@ -9,34 +9,31 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //---------------------------------------------------------
-    //테이블 헤더
-    // QStandardItemModel* headers;
-    // headers->clear();
-    // headers->setHorizontalHeaderLabels({"이름", "전화번호"});
+    // treeView = new QTreeView(this);
+    model = new ContactModel(this);
 
-    //QString::contains() -> 문자열 포함 여부 검사하는 함수
-    //Qt::CaseInsensitive -> 대소문자를 무시하고 검색 (영어 이름일 경우)
-    //appendRow(row) -> 테이블에 한 줄 추가
+    ui->treeView_PhoneBook->setModel(model);
+    ui->treeView_PhoneBook->setHeaderHidden(false); // 헤더 보이기
+    // setCentralWidget(treeView); // 메인창에 트리뷰 넣기
 
 
 
-    Contact c = {1, "a", "b", "c", "d"};
-    allContacts.push_back(c);
-    Contact c1 = {1, "a", "ffff", "c", "d"};
-    allContacts.push_back(c1);
+    // Contact c = {1, "a", "b", "c", "d"};
+    // allContacts.push_back(c);
+    // Contact c1 = {1, "a", "ffff", "c", "d"};
+    // allContacts.push_back(c1);
 
-    Contact c2 = {1, "b", "b", "c", "d"};
-    allContacts.push_back(c2);
-    Contact c3 = {1, "b", "ffff", "c", "d"};
-    allContacts.push_back(c3);
+    // Contact c2 = {1, "b", "b", "c", "d"};
+    // allContacts.push_back(c2);
+    // Contact c3 = {1, "b", "ffff", "c", "d"};
+    // allContacts.push_back(c3);
 
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
 }
 
 void MainWindow::slot_search()
 {
-    SearchDialog(allContacts, this).exec();
+    SearchDialog(model->getList(), this).exec();
 }
 
 MainWindow::~MainWindow()

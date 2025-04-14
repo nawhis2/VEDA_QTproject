@@ -2,7 +2,7 @@
 #include "./ui_SearchDialog.h"
 
 
-SearchDialog::SearchDialog(const QList<Contact>& allContacts, QWidget* parent)
+SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
     : QDialog(parent)
     , uis(new Ui::SearchDialog)
 {
@@ -40,11 +40,11 @@ SearchDialog::SearchDialog(const QList<Contact>& allContacts, QWidget* parent)
 
 
         int count = 0;
-        for(const Contact& c: allContacts){
-            if(c.name.contains(keyword, Qt::CaseInsensitive)){
+        for(const Contact* c: allContacts){
+            if(c->name.contains(keyword, Qt::CaseInsensitive)){
                 QList<QStandardItem*> row;
-                row << new QStandardItem(c.name);
-                row << new QStandardItem(c.phone);
+                row << new QStandardItem(c->name);
+                row << new QStandardItem(c->phone);
                 resultModel->appendRow(row);
                 count++;
             }
