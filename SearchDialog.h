@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QTableView>
 #include <QStandardItemModel>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,9 +34,9 @@ private slots:
 private:
     Ui::SearchDialog *uis;
 
-    QComboBox* filterComboBox;
-    QLineEdit*  keywordLineEdit;
-    QPushButton*    searchButton;
+    // QComboBox* filterComboBox;
+    // QLineEdit*  keywordLineEdit;
+    // QPushButton*    searchButton;
     QTableView* resultView;
     QStandardItemModel* resultModel;
     QList<Contact> allContacts;
