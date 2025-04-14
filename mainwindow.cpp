@@ -19,6 +19,18 @@ MainWindow::MainWindow(QWidget *parent)
     //Qt::CaseInsensitive -> 대소문자를 무시하고 검색 (영어 이름일 경우)
     //appendRow(row) -> 테이블에 한 줄 추가
 
+
+
+    Contact c = {1, "a", "b", "c", "d"};
+    allContacts.push_back(c);
+    Contact c1 = {1, "a", "ffff", "c", "d"};
+    allContacts.push_back(c1);
+
+    Contact c2 = {1, "b", "b", "c", "d"};
+    allContacts.push_back(c2);
+    Contact c3 = {1, "b", "ffff", "c", "d"};
+    allContacts.push_back(c3);
+
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
 }
 

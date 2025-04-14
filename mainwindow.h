@@ -18,10 +18,10 @@ struct Contact
     int         id;
     QString     name;
     QString     phone;
-    QDate       birthday;
+    // QDate       birthday;
     QString     email;
     QString     SNS; // insta
-    QString     Memo;
+    // QString     Memo;
 };
 
 class MainWindow : public QMainWindow
