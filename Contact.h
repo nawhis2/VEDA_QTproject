@@ -60,6 +60,7 @@ public:
     QList<Contact*>&  getList();
 
     void addContact(Contact* contact, Contact* parent);
+    void removeContact(Contact* contact);
     QModelIndex createIndexForNode(Contact* node) const;
   };
 

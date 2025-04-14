@@ -22,8 +22,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    ContactModel*  model;
-    QTreeView*     treeView;
+    ContactModel*   model;
+    QTreeView*      treeView;
+    QModelIndex     currentSelected;
 
 public:
     MainWindow(QWidget *parent = nullptr);

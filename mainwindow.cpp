@@ -21,6 +21,24 @@ MainWindow::MainWindow(QWidget *parent)
         ui->stackedWidget->setCurrentWidget(ui->detailPage);
     });
 
+    connect(ui->treeView_PhoneBook, &QTreeView::clicked, this, [=](const QModelIndex &index){
+        currentSelected = index;
+    });
+
+    connect(ui->pushButton_Delete, &QPushButton::clicked, this, [=]() {
+        if (!currentSelected.isValid())
+        {
+            QMessageBox::warning(this, "삭제 오류", "삭제할 항목을 먼저 선택하세요.");
+            return;
+        }
+
+        Contact* contact = static_cast<Contact*>(currentSelected.internalPointer());
+        model->removeContact(contact);
+
+        currentSelected = QModelIndex(); // 선택 초기화
+    });
+
+
     // ---  window 2  ---
     connect(ui->pushButton_Goback, &QPushButton::clicked, this, [&](){
         ui->stackedWidget->setCurrentWidget(ui->defaultPage);
@@ -35,18 +53,15 @@ MainWindow::MainWindow(QWidget *parent)
         newContact->email= ui->lineEdit_Email->text();
         newContact->SNS = ui->lineEdit_SNS->text();
         newContact->memo = ui->textEdit_Memo->toPlainText();
-
+        newContact->type = DataType::CONTACT;
         newContact->id = QUuid::createUuid();
-        // newContact->parent
         Contact *parent = model->getRoot();
         model->addContact(newContact, parent);
 
-        // model->getRoot()->children.append(newContact);
         QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
-        // ui->treeView_PhoneBook->setModel(model);
-        // model->getList() << newContact;
-        // qDebug() << newContact->id;
     });
+
+
 
     // connect(ui->checkBox_Favorite, &QCheckBox::clicked, this,  )
 }

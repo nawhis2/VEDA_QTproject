@@ -118,6 +118,23 @@ void ContactModel::addContact(Contact* contact, Contact* parent)
     endInsertRows();
 }
 
+void ContactModel::removeContact(Contact* contact)
+{
+    if (!contact || !contact->parent || contact->type == DataType::GROUP) return;
+
+    Contact* parent = contact->parent;
+    int row = parent->children.indexOf(contact);
+    if (row < 0) return;
+
+    QModelIndex parentIndex = createIndexForNode(parent);
+
+    beginRemoveRows(parentIndex, row, row);
+    parent->children.removeAt(row);
+    allContacts.removeOne(contact);
+    delete contact;
+    endRemoveRows();
+}
+
 // 선택된 노드 → QModelIndex 생성 (트리뷰 삽입 시 parentIndex 필요)
 QModelIndex ContactModel::createIndexForNode(Contact* node) const {
     if (node == root) return QModelIndex(); // 루트는 invalid index
