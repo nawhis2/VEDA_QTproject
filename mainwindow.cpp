@@ -14,21 +14,41 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->treeView_PhoneBook->setModel(model);
     ui->treeView_PhoneBook->setHeaderHidden(false); // 헤더 보이기
-    // setCentralWidget(treeView); // 메인창에 트리뷰 넣기
-
-
-
-    // Contact c = {1, "a", "b", "c", "d"};
-    // allContacts.push_back(c);
-    // Contact c1 = {1, "a", "ffff", "c", "d"};
-    // allContacts.push_back(c1);
-
-    // Contact c2 = {1, "b", "b", "c", "d"};
-    // allContacts.push_back(c2);
-    // Contact c3 = {1, "b", "ffff", "c", "d"};
-    // allContacts.push_back(c3);
 
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
+
+    connect(ui->pushButton_Add, &QPushButton::clicked, this, [&](){
+        ui->stackedWidget->setCurrentWidget(ui->detailPage);
+    });
+
+    // ---  window 2  ---
+    connect(ui->pushButton_Goback, &QPushButton::clicked, this, [&](){
+        ui->stackedWidget->setCurrentWidget(ui->defaultPage);
+    });
+
+    connect(ui->pushButton_Save, &QPushButton::clicked, this, [&](){
+        Contact *newContact = new Contact();
+        newContact->name = ui->lineEdit_Name->text();
+        newContact->phone= ui->lineEdit_Call->text();
+        newContact->birthday = QDate::currentDate();
+        newContact->favorite = 0;
+        newContact->email= ui->lineEdit_Email->text();
+        newContact->SNS = ui->lineEdit_SNS->text();
+        newContact->memo = ui->textEdit_Memo->toPlainText();
+
+        newContact->id = QUuid::createUuid();
+        // newContact->parent
+        Contact *parent = model->getRoot();
+        model->addContact(newContact, parent);
+
+        // model->getRoot()->children.append(newContact);
+        QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
+        // ui->treeView_PhoneBook->setModel(model);
+        // model->getList() << newContact;
+        // qDebug() << newContact->id;
+    });
+
+    // connect(ui->checkBox_Favorite, &QCheckBox::clicked, this,  )
 }
 
 void MainWindow::slot_search()

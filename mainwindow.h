@@ -7,6 +7,8 @@
 #include <QList>
 #include <QTableView>
 #include <QTreeView>
+#include <QDate>
+#include <QDateEdit>
 
 #include "Contact.h"
 
@@ -19,6 +21,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
     ContactModel*  model;
     QTreeView*     treeView;
 
