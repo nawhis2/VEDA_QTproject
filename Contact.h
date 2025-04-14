@@ -6,6 +6,7 @@
 #include <QDateEdit>
 #include <QAbstractItemModel>
 #include <QList>
+#include <QUuid>
 
 enum class DataType {
     GROUP,
@@ -13,13 +14,14 @@ enum class DataType {
 };
 
 struct Contact {
-    int         id;
+    QUuid       id;
     QString     name;
     DataType    type;
 
     // 연락처 전용 필드 (그룹일 경우 무시됨)
     QString     phone;
     QDate       birthday;
+    bool        favorite;
     QString     email;
     QString     SNS;
     QString     memo;
@@ -53,8 +55,12 @@ public:
     Contact* rootNode(); // 루트 노드 접근
     void setRoot(Contact* root); // 외부에서 루트 설정
     Contact* getNode(const QModelIndex& index) const; // QModelIndex → ContactNode*
+    Contact* getRoot();
 
     QList<Contact*>&  getList();
+
+    void addContact(Contact* contact, Contact* parent);
+    QModelIndex createIndexForNode(Contact* node) const;
   };
 
 

@@ -4,15 +4,17 @@ ContactModel::ContactModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
     // 트리의 루트 노드 생성
-    root = new Contact{0, "ROOT", DataType::GROUP, "", {}, "", "", "", nullptr};
+    root = new Contact{QUuid::createUuid(), "ROOT", DataType::GROUP, "", {}, 0, "", "", "", nullptr};
 
     // 테스트용 자식 그룹/연락처 삽입
-    Contact* group1 = new Contact{1, "가족", DataType::GROUP, "", {}, "", "", "", root};
-    Contact* mom = new Contact{2, "엄마", DataType::CONTACT, "010-1234-5678", {}, "", "", "", group1};
-    Contact* dad = new Contact{3, "아빠", DataType::CONTACT, "010-1111-2222", {}, "", "", "", group1};
-    group1->children.append(mom);
-    group1->children.append(dad);
-    root->children.append(group1);
+    Contact* group_Favorite = new Contact{QUuid::createUuid(), "Favorite", DataType::GROUP, "", {}, 0, "", "", "", root};
+    Contact* group_Birth = new Contact{QUuid::createUuid(), "Birth Day", DataType::GROUP, "", {}, 0, "", "", "", root};
+    Contact* mom = new Contact{QUuid::createUuid(), "엄마", DataType::CONTACT, "010-1234-5678", {},0, "", "", "", group_Favorite};
+    Contact* dad = new Contact{QUuid::createUuid(), "아빠", DataType::CONTACT, "010-1111-2222", {},0, "", "", "", group_Favorite};
+
+    group_Favorite->children.append(mom);
+    group_Favorite->children.append(dad);
+    root->children.append(group_Favorite);
 
     // 검색을 위한 전체 리스트에 포함
     allContacts << mom << dad;
@@ -99,3 +101,27 @@ QList<Contact*>&  ContactModel::getList()
     return allContacts;
 }
 
+Contact* ContactModel::getRoot()
+{
+    return root;
+}
+
+void ContactModel::addContact(Contact* contact, Contact* parent)
+{
+    if (!parent) parent = root;
+
+    int row = parent->children.size();
+    beginInsertRows(createIndexForNode(parent), row, row);
+    parent->children.append(contact);
+    contact->parent = parent;
+    allContacts.append(contact);
+    endInsertRows();
+}
+
+// 선택된 노드 → QModelIndex 생성 (트리뷰 삽입 시 parentIndex 필요)
+QModelIndex ContactModel::createIndexForNode(Contact* node) const {
+    if (node == root) return QModelIndex(); // 루트는 invalid index
+    Contact* parent = node->parent;
+    int row = parent ? parent->children.indexOf(node) : 0;
+    return createIndex(row, 0, node);
+}
