@@ -243,6 +243,7 @@ MainWindow::MainWindow(QWidget *parent)
             bool isToggled = (contact->favorite != ui->checkBox_Favorite->checkState()) ? 1 : 0;
             editContact(contact);
             qDebug() << "toggle : " << isToggled;
+            // errorpoint;
             if (isToggled)
                 model->toggleFavorite(contact);
             setDetailWindow(currentDetailData);
@@ -351,7 +352,7 @@ void MainWindow::slot_search()
             currentSelected = index;
             setDetailWindow(index);
             ui->stackedWidget->setCurrentWidget(ui->detailPage);
-
+            currentDetailData = index;
         }
     });
 
