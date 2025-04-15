@@ -171,7 +171,7 @@ QModelIndex ContactModel::createIndexForNode(Contact* node) const
 
 void ContactModel::toggleFavorite(Contact* contact) {
     // 즐겨찾기 상태 토글
-    contact->favorite = !contact->favorite;
+    // contact->favorite = !contact->favorite;
 
     Contact* oldParent = contact->parent;
     int oldRow = oldParent->childIndex(contact);
@@ -188,7 +188,7 @@ void ContactModel::toggleFavorite(Contact* contact) {
     newParent->insertChild(newRow, contact);
     endMoveRows();
 
-    emit dataChanged(indexForContact(contact), indexForContact(contact), {Qt::DisplayRole});
+    // emit dataChanged(indexForContact(contact), indexForContact(contact), {Qt::DisplayRole});
 }
 
 QModelIndex ContactModel::indexForContact(Contact* contact) const

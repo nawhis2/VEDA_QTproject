@@ -117,7 +117,6 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui->treeView_PhoneBook, &QTreeView::doubleClicked, this, [=](const QModelIndex &index){
-
         Contact* contact = static_cast<Contact*>(index.internalPointer());
         if (!contact || contact->type == DataType::GROUP) return;
 
@@ -134,15 +133,11 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui->pushButton_Save, &QPushButton::clicked, this, [&](){
+        qDebug() << "hi";
         if (currentDetailData == QModelIndex())
         {
             addNewContact();
             clearDetailWindow();
-
-            // if (contact->favorite)
-            // {
-            //     model->updateFavoriteGroup(contact, contact->favorite);
-            // }
 
             // 즐겨찾기 여부에 따라 parent 설정
             QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
@@ -152,13 +147,13 @@ MainWindow::MainWindow(QWidget *parent)
         else
         {
             Contact *contact = static_cast<Contact*>(currentDetailData.internalPointer());
+            qDebug() << contact;
+            bool isToggled = (contact->favorite != ui->checkBox_Favorite->checkState()) ? 1 : 0;
             editContact(contact);
+            qDebug() << "toggle : " << isToggled;
+            if (isToggled)
+                model->toggleFavorite(contact);
             setDetailWindow(currentDetailData);
-            // model->rebuildModelData();
-            // if (contact->favorite)
-            // {
-            //     model->updateFavoriteGroup(contact, contact->favorite);
-            // }
             QMessageBox::information(this, "변경완료", "연락처가 변경되었습니다");
         }
     });
@@ -171,7 +166,11 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::addNewContact()
 {
     Contact *newContact = new Contact();
+    qDebug() << "add 1" << currentDetailData;
+
     editContact(newContact);
+
+    qDebug() << "add 2" << currentDetailData;
 
     Contact* parent = nullptr;
     if (newContact->favorite == 1) {
@@ -196,6 +195,8 @@ void MainWindow::editContact(Contact *contact)
     contact->memo = ui->textEdit_Memo->toPlainText();
     contact->type = DataType::CONTACT;
     contact->id = QUuid::createUuid().toString();
+    // qDebug() << "Toggling complete";
+
 }
 
 void MainWindow::clearDetailWindow()
@@ -223,7 +224,6 @@ void MainWindow::setDetailWindow(const QModelIndex &index)
     ui->lineEdit_SNS->setText(contact->SNS);
     ui->lineEdit_Location->setText(contact->location); // 존재하는 경우
     ui->dateEdit->setDate(contact->birthday);
-    // ui->checkBox_Favorite->checkState();
     ui->textEdit_Memo->setText(contact->memo);
     ui->checkBox_Favorite->setChecked(contact->favorite);
 }
