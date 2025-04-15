@@ -63,6 +63,8 @@ public:
 
     void addContact(Contact* contact, Contact* parent);
     void removeContact(Contact* contact);
+    void clearAll();
+    void deleteTree(Contact*);
     // void rebuildModelData();
     QModelIndex createIndexForNode(Contact* node) const;
   };

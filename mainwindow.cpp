@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView_PhoneBook->setHeaderHidden(false); // 헤더 보이기
 
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
+    connect(ui->pushButton_SaveFile, &QPushButton::clicked, this, &MainWindow::saveToJson);
+    connect(ui->pushButton_LoadFile, &QPushButton::clicked, this, &MainWindow::loadToJson);
 
     connect(ui->pushButton_Add, &QPushButton::clicked, this, [&](){
         ui->stackedWidget->setCurrentWidget(ui->detailPage);
@@ -84,6 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
+//-------------------------------------------------------------
 void MainWindow::addNewContact()
 {
     Contact *newContact = new Contact();
@@ -154,6 +157,7 @@ void MainWindow::slot_search()
             currentSelected = index;
             setDetailWindow(index);
             ui->stackedWidget->setCurrentWidget(ui->detailPage);
+
         }
     });
 
@@ -164,6 +168,8 @@ void MainWindow::slot_search()
 MainWindow::~MainWindow()
 {}
 
+//-----------------------------------------------------------
+
 Contact* MainWindow::findFavoriteGroup() {
     for (Contact* c : model->getRoot()->children) {
         if (c->name == "Favorite") {
@@ -172,3 +178,88 @@ Contact* MainWindow::findFavoriteGroup() {
     }
     return nullptr;
 }
+
+//-----------------------------------------------------------
+//Json 파일 저장하기
+void MainWindow::saveToJson()
+{
+    QJsonArray array;
+
+    QString path = QFileDialog::getSaveFileName(this, "연락처_파일_저장");
+    QList<Contact*> allContacts = model->getList();
+    for (Contact* c : allContacts) {
+        QJsonObject obj;
+        obj["name"] = c->name;
+        obj["phone"] = c->phone;
+        obj["email"] = c->email;
+        obj["favorite"] = c->favorite;
+        obj["birthday"] = c->birthday.toString(Qt::ISODate);
+        obj["SNS"] = c->SNS;
+        obj["location"] = c->location;
+        obj["memo"] = c->memo;
+
+        if (c->type == DataType::GROUP)
+            obj["type"] = 0;
+        else
+            obj["type"] = 1;
+
+        array.append(obj);
+    }
+
+    QJsonDocument doc(array);
+    QFile file(path); // path
+    if (!file.open(QIODevice::WriteOnly)) { //쓰기 모드로 열기
+        QMessageBox::warning(this, "오류", "파일을 저장할 수 없습니다");
+        return;
+    }
+
+    file.write(doc.toJson(QJsonDocument::Indented)); //JSON 텍스트로 쓰기
+    file.close();
+
+    QMessageBox::information(this, "저장 완료", "연락처를 저장했습니다");
+}
+
+
+//----------------------------------------------------
+//Json 파일 불러오기
+void MainWindow::loadToJson()
+{
+    model->clearAll();
+    QString path = QFileDialog::getOpenFileName(this, "연락처_파일_불러오기");
+        // getSaveFileName(this, "연락처_파일_저장");
+    QFile file(path);
+
+    if (!file.open(QIODevice::ReadOnly)){
+        QMessageBox::warning(this, "오류", "파일을 불러올 수 없습니다");
+        return;
+    }
+
+    QByteArray data = file.readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    QJsonArray array = doc.array();
+    for (const QJsonValue &val : array) {
+        QJsonObject obj = val.toObject();
+
+        Contact* c = new Contact();
+        c->name = obj["name"].toString();
+        c->phone = obj["phone"].toString();
+        c->email = obj["email"].toString();
+        c->favorite = obj["favorite"].toBool();
+
+        if (obj["type"].toInt() == 0)
+            c->type = DataType::GROUP;
+        else
+            c->type = DataType::CONTACT;
+
+        c->birthday.toString(Qt::ISODate) = obj["birthday"].toString();
+        c->SNS = obj["SNS"].toString();
+        c->location = obj["location"].toString();
+        c->memo = obj["memo"].toString();
+
+        model->addContact(c, model->getRoot());
+    }
+
+    QMessageBox::information(this, "불러오기 완료", "연락처를 불러왔습니다");
+}
+

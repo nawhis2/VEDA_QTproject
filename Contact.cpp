@@ -136,6 +136,30 @@ void ContactModel::removeContact(Contact* contact)
     endRemoveRows();
 }
 
+void ContactModel::clearAll()
+{
+    beginResetModel();
+    deleteTree(root);
+
+    root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
+    Contact* group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
+
+    root->children.append(group_Favorite);
+
+    allContacts.clear();
+    endResetModel();
+}
+
+void ContactModel::deleteTree(Contact* node)
+{
+    if(!node) return;
+
+    for (Contact* child : node->children)
+        deleteTree(child);
+
+    delete node;
+}
+
 // 선택된 노드 → QModelIndex 생성 (트리뷰 삽입 시 parentIndex 필요)
 QModelIndex ContactModel::createIndexForNode(Contact* node) const {
     if (node == root) return QModelIndex(); // 루트는 invalid index

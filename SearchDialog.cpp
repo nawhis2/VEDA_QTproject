@@ -22,6 +22,8 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
     resultView->resize(300, 200);
     resultView->move(80,100);
+    resultView->verticalHeader()->setVisible(false);
+
 
 
     //-------------------------------------------------------------
@@ -39,6 +41,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
             return;
         }
         emit contactSelected(doubleClickedContact);
+        this->accept();
     });
 
     connect(uis->pushButton, &QPushButton::clicked, this, [=](){

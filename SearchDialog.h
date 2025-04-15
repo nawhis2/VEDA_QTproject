@@ -9,6 +9,7 @@
 #include <QTableView>
 #include <QStandardItemModel>
 #include <QMessageBox>
+#include <QHeaderView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

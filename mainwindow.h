@@ -11,6 +11,11 @@
 #include <QDateEdit>
 #include <QDesktopServices>
 #include "Contact.h"
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +40,9 @@ public:
     void clearDetailWindow();
     void setDetailWindow(const QModelIndex &index);
     void editContact(Contact *contact);
+    void saveToJson();
+    void loadToJson();
+
 
 private:
     Ui::MainWindow *ui;
