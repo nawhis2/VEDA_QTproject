@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>506</width>
-    <height>477</height>
+    <width>483</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,18 +19,18 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>491</width>
-      <height>431</height>
+      <width>471</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="defaultPage">
      <widget class="QPushButton" name="pushButton_Search">
       <property name="geometry">
        <rect>
-        <x>374</x>
+        <x>370</x>
         <y>100</y>
         <width>101</width>
         <height>24</height>
@@ -53,7 +53,7 @@
      <widget class="QPushButton" name="pushButton_Add">
       <property name="geometry">
        <rect>
-        <x>374</x>
+        <x>370</x>
         <y>40</y>
         <width>101</width>
         <height>24</height>
@@ -66,7 +66,7 @@
      <widget class="QPushButton" name="pushButton_Delete">
       <property name="geometry">
        <rect>
-        <x>374</x>
+        <x>370</x>
         <y>70</y>
         <width>101</width>
         <height>24</height>
@@ -79,8 +79,8 @@
      <widget class="QPushButton" name="pushButton_LoadFile">
       <property name="geometry">
        <rect>
-        <x>374</x>
-        <y>300</y>
+        <x>370</x>
+        <y>310</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -92,8 +92,8 @@
      <widget class="QPushButton" name="pushButton_SaveFile">
       <property name="geometry">
        <rect>
-        <x>374</x>
-        <y>270</y>
+        <x>370</x>
+        <y>280</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -102,13 +102,26 @@
        <string>저장하기</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_Exit">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>340</y>
+        <width>101</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>종 료</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="detailPage">
      <widget class="QPushButton" name="pushButton_Goback">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>30</y>
+        <x>80</x>
+        <y>40</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -120,10 +133,10 @@
      <widget class="QCheckBox" name="checkBox_Favorite">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>280</x>
         <y>30</y>
-        <width>101</width>
-        <height>31</height>
+        <width>91</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
@@ -133,14 +146,14 @@
      <widget class="QPushButton" name="pushButton_Save">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>30</y>
+        <x>360</x>
+        <y>40</y>
         <width>101</width>
         <height>24</height>
        </rect>
       </property>
       <property name="text">
-       <string>저장</string>
+       <string>저 장</string>
       </property>
      </widget>
      <widget class="QWidget" name="formLayoutWidget">
@@ -149,10 +162,13 @@
         <x>20</x>
         <y>70</y>
         <width>441</width>
-        <height>391</height>
+        <height>301</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
+       <property name="labelAlignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label_Name">
          <property name="text">
@@ -217,24 +233,30 @@
        <item row="5" column="1">
         <widget class="QLineEdit" name="lineEdit_SNS"/>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_Memo">
-         <property name="text">
-          <string>메모</string>
-         </property>
-        </widget>
-       </item>
        <item row="7" column="1">
         <widget class="QTextEdit" name="textEdit_Memo"/>
        </item>
        <item row="6" column="1">
         <widget class="QPushButton" name="pushButton_SNS">
          <property name="text">
-          <string>연결</string>
+          <string>연 결</string>
          </property>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>48</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>메  모</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -244,8 +266,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>506</width>
-     <height>25</height>
+     <width>483</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

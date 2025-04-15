@@ -9,5 +9,8 @@
         <file>resources/Search.png</file>
         <file>resources/starOff.png</file>
         <file>resources/starOn.png</file>
+        <file>resources/off.png</file>
+        <file>resources/people.png</file>
+        <file>resources/file.png</file>
     </qresource>
 </RCC>

@@ -7,6 +7,8 @@
 #include <QAbstractItemModel>
 #include <QList>
 #include <QUuid>
+#include <QApplication>
+#include <QStyle>
 
 enum class DataType {
     GROUP,

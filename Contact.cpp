@@ -74,9 +74,9 @@ QVariant ContactModel::data(const QModelIndex& index, int role) const {
 
     if (role == Qt::DecorationRole && index.column() == 0) {
         if (node->type == DataType::GROUP)
-            return QIcon(":/icons/folder.png");
+            return QIcon(":resources/file.png");
         else
-            return QIcon(":/icons/person.png");
+            return QIcon(":resources/people.png");
     }
 
     return QVariant();
@@ -91,8 +91,7 @@ QVariant ContactModel::headerData(int section, Qt::Orientation orientation, int 
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
-        if (section == 0) return "이름";
-        if (section == 1) return "전화번호";
+        if (section == 0) return "연락처";
     }
     return QVariant();
 }

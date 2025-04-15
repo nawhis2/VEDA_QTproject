@@ -73,6 +73,12 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap search(":resources/Search.png");
     ui->pushButton_Search->setIcon(QIcon(search));
 
+    QPixmap Goback(":resources/Back.png");
+    ui->pushButton_Goback->setIcon(QIcon(Goback));
+
+    QPixmap Exit(":resources/off.png");
+    ui->pushButton_Exit->setIcon(QIcon(Exit));
+
     ui->checkBox_Favorite->setStyleSheet(R"(
     QCheckBox::indicator {
         width: 20px;
@@ -85,8 +91,12 @@ MainWindow::MainWindow(QWidget *parent)
         image: url(:/resources/starOn.png);
     }
 )");
-
-
+    ui->treeView_PhoneBook->setStyleSheet(R"(
+    QTreeView::item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+)");
     //-----------------------------------------------------------------------
 
     ui->dateEdit->setDate(QDate::currentDate());
@@ -98,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
     connect(ui->pushButton_SaveFile, &QPushButton::clicked, this, &MainWindow::saveToJson);
     connect(ui->pushButton_LoadFile, &QPushButton::clicked, this, &MainWindow::loadToJson);
-
+    connect(ui->pushButton_Exit, &QPushButton::clicked, qApp, &QApplication::exit);
     connect(ui->pushButton_Add, &QPushButton::clicked, this, [&](){
         ui->stackedWidget->setCurrentWidget(ui->detailPage);
         currentDetailData = QModelIndex();
