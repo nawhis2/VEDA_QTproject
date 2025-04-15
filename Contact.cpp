@@ -4,20 +4,12 @@ ContactModel::ContactModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
     // 트리의 루트 노드 생성
-    root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
+    root = new Contact{DataType::GROUP, "ROOT",  "", {}, 0, "", "", "", nullptr};
 
     // 테스트용 자식 그룹/연락처 삽입
-    group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
-    // Contact* group_Birth = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Birth Day",  "", {}, 0, "", "","", "", root};
-    Contact* mom = new Contact{DataType::CONTACT,QUuid::createUuid().toString(), "엄마",  "010-1234-5678", {},1, "", "","", "", group_Favorite};
-    Contact* dad = new Contact{ DataType::CONTACT, QUuid::createUuid().toString(), "아빠","010-1111-2222", {},1, "", "","", "", group_Favorite};
-
-    group_Favorite->children.append(mom);
-    group_Favorite->children.append(dad);
+    group_Favorite = new Contact{DataType::GROUP, "Favorite",  "", {}, 0, "", "","", "", root};
     root->children.append(group_Favorite);
 
-    // 검색을 위한 전체 리스트에 포함
-    allContacts << mom << dad;
 }
 
 // 자식 아이템 찾기
@@ -146,8 +138,8 @@ void ContactModel::clearAll()
     beginResetModel();
     deleteTree(root);
 
-    root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
-    group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
+    root = new Contact{DataType::GROUP, "ROOT",  "", {}, 0, "", "", "", nullptr};
+    group_Favorite = new Contact{DataType::GROUP, "Favorite",  "", {}, 0, "", "","", "", root};
 
     root->children.append(group_Favorite);
 

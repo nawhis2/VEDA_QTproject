@@ -6,7 +6,6 @@
 #include <QDateEdit>
 #include <QAbstractItemModel>
 #include <QList>
-#include <QUuid>
 #include <QApplication>
 #include <QStyle>
 
@@ -18,7 +17,6 @@ enum class DataType {
 
 struct Contact {
     DataType    type;
-    QString       id;
     QString     name;
 
     // 연락처 전용 필드 (그룹일 경우 무시됨)
