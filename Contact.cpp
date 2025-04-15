@@ -7,8 +7,8 @@ ContactModel::ContactModel(QObject* parent)
     root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
 
     // 테스트용 자식 그룹/연락처 삽입
-    Contact* group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
-    Contact* group_Birth = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Birth Day",  "", {}, 0, "", "","", "", root};
+    group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
+    // Contact* group_Birth = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Birth Day",  "", {}, 0, "", "","", "", root};
     Contact* mom = new Contact{DataType::CONTACT,QUuid::createUuid().toString(), "엄마",  "010-1234-5678", {},1, "", "","", "", group_Favorite};
     Contact* dad = new Contact{ DataType::CONTACT, QUuid::createUuid().toString(), "아빠","010-1111-2222", {},1, "", "","", "", group_Favorite};
 
@@ -69,7 +69,7 @@ QVariant ContactModel::data(const QModelIndex& index, int role) const {
 
     if (role == Qt::DisplayRole) {
         if (index.column() == 0) return node->name;
-        if (index.column() == 1 && node->type == DataType::CONTACT) return node->phone;
+        // if (index.column() == 1 && node->type == DataType::CONTACT) return node->phone;
     }
 
     if (role == Qt::DecorationRole && index.column() == 0) {
@@ -169,35 +169,35 @@ QModelIndex ContactModel::createIndexForNode(Contact* node) const
     return createIndex(row, 0, node);
 }
 
-// void ContactModel::updateFavoriteGroup(Contact* contact, bool isFavorite)
-// {
-//     Contact* favGroup = [&]() -> Contact*{
-//         for (Contact* group : root->children)
-//             if (group->name == "Favorite" && group->type == DataType::GROUP)
-//                 return group;
-//         return nullptr;
-//     }();
+void ContactModel::toggleFavorite(Contact* contact) {
+    // 즐겨찾기 상태 토글
+    contact->favorite = !contact->favorite;
 
-//     if (!favGroup || !contact) return;
-//     if (isFavorite)
-//     {
-//         if (!favGroup->children.contains(contact))
-//         {
-//             int insertRow = favGroup->children.size();
-//             beginInsertRows(createIndexForNode(favGroup), insertRow, insertRow);
-//             favGroup->children.append(contact);
-//             contact->parent = favGroup;
-//             endInsertRows();
-//         }
-//     }
-//     else {
-//         int row = favGroup->children.indexOf(contact);
-//         if (row >= 0)
-//         {
-//             beginRemoveRows(createIndexForNode(favGroup), row, row);
-//             favGroup->children.removeAt(row);
-//             // ⚠️ parent 유지할지 지울지 정책에 따라 다르게
-//             endRemoveRows();
-//         }
-//     }
-// }
+    Contact* oldParent = contact->parent;
+    int oldRow = oldParent->childIndex(contact);
+    QModelIndex oldParentIndex = indexForContact(oldParent);
+
+    // 즐겨찾기 여부에 따라 삽입 대상 결정
+    Contact* newParent = contact->favorite ? group_Favorite : root;
+    int newRow = newParent->children.size();
+    QModelIndex newParentIndex = indexForContact(newParent);
+
+    // 트리 뷰에 이동 알림
+    beginMoveRows(oldParentIndex, oldRow, oldRow, newParentIndex, newRow);
+    oldParent->removeChild(contact);
+    newParent->insertChild(newRow, contact);
+    endMoveRows();
+
+    emit dataChanged(indexForContact(contact), indexForContact(contact), {Qt::DisplayRole});
+}
+
+QModelIndex ContactModel::indexForContact(Contact* contact) const
+{
+    if (contact == nullptr || contact == root)
+        return QModelIndex(); // rootContact는 부모가 없으니 invalid 반환
+
+    Contact* parent = contact->parent;
+    int row = parent->childIndex(contact); // contact가 부모의 몇 번째 자식인지
+
+    return createIndex(row, 0, contact); // column은 보통 0으로 처리
+}

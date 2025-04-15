@@ -31,6 +31,25 @@ struct Contact {
     // 트리 구조용
     Contact* parent = nullptr;
     QList<Contact*> children;
+
+    int childIndex(Contact* child) const {
+        return children.indexOf(child);  // m_children: QList<Contact*>
+    }
+
+    void removeChild(Contact* child)
+    {
+        children.removeAll(child);
+        child->setParent(nullptr); // 필요 시
+    }
+
+    void insertChild(int row, Contact* child) {
+        children.insert(row, child);
+        child->setParent(this);
+    }
+
+    void setParent(Contact* parent) {
+        this->parent = parent;
+    }
 };
 
 
@@ -40,6 +59,8 @@ class ContactModel : public QAbstractItemModel
 
     QList<Contact*>  allContacts;
     Contact*    root;
+    Contact*    group_Favorite;
+
 
 public:
     explicit ContactModel(QObject* parent = nullptr);
@@ -66,7 +87,10 @@ public:
     void clearAll();
     void deleteTree(Contact*);
     // void rebuildModelData();
+
+    void toggleFavorite(Contact* contact);
     QModelIndex createIndexForNode(Contact* node) const;
+    QModelIndex indexForContact(Contact* contact) const;
   };
 
 
