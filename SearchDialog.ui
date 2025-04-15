@@ -16,37 +16,47 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>30</x>
      <y>40</y>
-     <width>31</width>
+     <width>51</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>이름</string>
+    <string>이 름</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>40</y>
-     <width>113</width>
-     <height>22</height>
+     <width>191</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>230</x>
+     <x>280</x>
      <y>40</y>
-     <width>75</width>
+     <width>91</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
     <string>검색</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>351</width>
+     <height>221</height>
+    </rect>
    </property>
   </widget>
  </widget>

@@ -14,21 +14,23 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
     resultModel = new QStandardItemModel();
     resultModel->setHorizontalHeaderLabels({"이름", "전화번호"});
 
-    resultView = new QTableView(this);
-    resultView->setModel(resultModel);
+    uis->tableView->setModel(resultModel);
 
     //읽기 전용
-    resultView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    uis->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    uis->tableView->verticalHeader()->setVisible(false);
 
-    resultView->resize(300, 200);
-    resultView->move(80,100);
-    resultView->verticalHeader()->setVisible(false);
+    // 열 너비 고정
+    uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
+    uis->tableView->setColumnWidth(1, 220); // 전화번호 열 너비
 
-
+    // 자동 리사이즈 비활성화
+    uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    uis->tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
 
     //-------------------------------------------------------------
     //검색 결과 더블클릭시 디테일 창 전환
-    connect(resultView, &QTableView::doubleClicked, this, [=](const QModelIndex &index){
+    connect(uis->tableView, &QTableView::doubleClicked, this, [=](const QModelIndex &index){
 
         if(!index.isValid()) return ;
         qDebug() << "bb1";
@@ -69,6 +71,14 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
                 resultModel->appendRow(row);
                 count++;
+
+                // 열 너비 고정
+                uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
+                uis->tableView->setColumnWidth(1, 220); // 전화번호 열 너비
+
+                // 자동 리사이즈 비활성화
+                uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+                uis->tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
             }
         }
 
