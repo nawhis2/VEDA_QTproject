@@ -25,9 +25,21 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
 
     //-------------------------------------------------------------
-    //검색 푸시버튼 눌렀을 경우 -> 키워드에 맞는 정보 불러오기
-    //QStandardItemModel::appendRow() 함수는 QList<QStandardItem*> 타입을 필수로 요구
+    //검색 결과 더블클릭시 디테일 창 전환
+    connect(resultView, &QTableView::doubleClicked, this, [=](const QModelIndex &index){
 
+        if(!index.isValid()) return ;
+        qDebug() << "bb1";
+        // 더블클릭한 row의 0번째 컬럼에서 Contact* 꺼냄
+        QStandardItem* item = resultModel->item(index.row(), 0);
+        Contact* doubleClickedContact = static_cast<Contact*>(item->data().value<void*>());
+                qDebug() << doubleClickedContact->name;
+        if (!doubleClickedContact) {
+            qDebug() << "포인터가 nullptr입니다.";
+            return;
+        }
+        emit contactSelected(doubleClickedContact);
+    });
 
     connect(uis->pushButton, &QPushButton::clicked, this, [=](){
 
@@ -46,8 +58,12 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
         for(const Contact* c: allContacts){
             if(c->name.contains(keyword, Qt::CaseInsensitive)){
                 QList<QStandardItem*> row;
-                row << new QStandardItem(c->name);
-                row << new QStandardItem(c->phone);
+
+                QStandardItem* nameItem = new QStandardItem(c->name);
+                nameItem->setData(QVariant::fromValue((void*)c));  // Contact* 저장!
+                QStandardItem* phoneItem = new QStandardItem(c->phone);
+                row << nameItem << phoneItem;
+
                 resultModel->appendRow(row);
                 count++;
             }
@@ -62,10 +78,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
 }
 
-// //검색 결과 더블클릭시 디테일 창 전환
-// connect(resultView, &QTableView::doubleclicked, this, [=](const QModelIndex &index){
 
-// });
 
 void SearchDialog::performSearch(const QString& keyword)
 {}

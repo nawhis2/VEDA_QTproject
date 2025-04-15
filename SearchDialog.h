@@ -26,7 +26,7 @@ public:
     SearchDialog(const QList<Contact*>& allContacts, QWidget* parent = nullptr);
 
 signals:
-    void contactSelected(const QString &name);
+    void contactSelected(Contact* contact); //연락처 알려주는 신호
 
 private slots:
     void performSearch(const QString& keyword);

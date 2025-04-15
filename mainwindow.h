@@ -9,7 +9,6 @@
 #include <QTreeView>
 #include <QDate>
 #include <QDateEdit>
-
 #include "Contact.h"
 
 QT_BEGIN_NAMESPACE
