@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>491</width>
-    <height>435</height>
+    <width>506</width>
+    <height>477</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,12 +19,12 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>481</width>
-      <height>381</height>
+      <width>491</width>
+      <height>431</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="defaultPage">
      <widget class="QPushButton" name="pushButton_Search">
@@ -80,7 +80,7 @@
       <property name="geometry">
        <rect>
         <x>374</x>
-        <y>340</y>
+        <y>300</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -93,7 +93,7 @@
       <property name="geometry">
        <rect>
         <x>374</x>
-        <y>310</y>
+        <y>270</y>
         <width>101</width>
         <height>24</height>
        </rect>
@@ -120,14 +120,14 @@
      <widget class="QCheckBox" name="checkBox_Favorite">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>50</y>
+        <x>260</x>
+        <y>30</y>
         <width>101</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
-       <string> 즐겨찾기</string>
+       <string>즐겨찾기</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_Save">
@@ -148,8 +148,8 @@
        <rect>
         <x>20</x>
         <y>70</y>
-        <width>341</width>
-        <height>311</height>
+        <width>441</width>
+        <height>391</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout">
@@ -217,30 +217,24 @@
        <item row="5" column="1">
         <widget class="QLineEdit" name="lineEdit_SNS"/>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_Memo">
          <property name="text">
           <string>메모</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QTextEdit" name="textEdit_Memo"/>
        </item>
+       <item row="6" column="1">
+        <widget class="QPushButton" name="pushButton_SNS">
+         <property name="text">
+          <string>연결</string>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </widget>
-     <widget class="QPushButton" name="pushButton_SNS">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>220</y>
-        <width>101</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>연결</string>
-      </property>
      </widget>
     </widget>
    </widget>
@@ -250,7 +244,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>491</width>
+     <width>506</width>
      <height>25</height>
     </rect>
    </property>

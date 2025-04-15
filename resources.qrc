@@ -7,5 +7,7 @@
         <file>resources/UserPlus.png</file>
         <file>resources/UserX.png</file>
         <file>resources/Search.png</file>
+        <file>resources/starOff.png</file>
+        <file>resources/starOn.png</file>
     </qresource>
 </RCC>

@@ -73,6 +73,18 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap search(":resources/Search.png");
     ui->pushButton_Search->setIcon(QIcon(search));
 
+    ui->checkBox_Favorite->setStyleSheet(R"(
+    QCheckBox::indicator {
+        width: 20px;
+        height: 20px;
+    }
+    QCheckBox::indicator:unchecked {
+        image: url(:/resources/starOff.png);
+    }
+    QCheckBox::indicator:checked {
+        image: url(:/resources/starOn.png);
+    }
+)");
 
 
     //-----------------------------------------------------------------------
