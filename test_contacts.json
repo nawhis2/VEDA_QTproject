@@ -1,0 +1,222 @@
+[
+    {
+        "SNS": "twitter",
+        "birthday": "2009-07-20",
+        "email": "김민수680@naver.com",
+        "favorite": false,
+        "location": "런던",
+        "memo": "오늘도 파이팅!",
+        "name": "김민수",
+        "phone": "01094636701",
+        "type": 1
+    },
+    {
+        "SNS": "facebook",
+        "birthday": "1999-02-03",
+        "email": "이영희894@gmail.com",
+        "favorite": false,
+        "location": "부산시",
+        "memo": "기회는 준비된 자에게",
+        "name": "이영희",
+        "phone": "01044621871",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "2014-11-13",
+        "email": "박철수810@veda.com",
+        "favorite": false,
+        "location": "부산시",
+        "memo": "어제보다 더 나은 나",
+        "name": "박철수",
+        "phone": "01058791473",
+        "type": 1
+    },
+    {
+        "SNS": "instagram",
+        "birthday": "2010-03-02",
+        "email": "최지우868@veda.com",
+        "favorite": true,
+        "location": "런던",
+        "memo": "늘 감사하자",
+        "name": "최지우",
+        "phone": "01041815374",
+        "type": 1
+    },
+    {
+        "SNS": "instagram",
+        "birthday": "2003-11-07",
+        "email": "강동원354@hanmail.net",
+        "favorite": false,
+        "location": "서울시",
+        "memo": "기회는 준비된 자에게",
+        "name": "강동원",
+        "phone": "01070483699",
+        "type": 1
+    },
+    {
+        "SNS": "instagram",
+        "birthday": "2000-01-17",
+        "email": "오세훈742@veda.com",
+        "favorite": false,
+        "location": "부산시",
+        "memo": "늘 감사하자",
+        "name": "오세훈",
+        "phone": "01037900673",
+        "type": 1
+    },
+    {
+        "SNS": "facebook",
+        "birthday": "2011-10-30",
+        "email": "장윤정126@gmail.com",
+        "favorite": true,
+        "location": "도쿄",
+        "memo": "긍정의 힘",
+        "name": "장윤정",
+        "phone": "01058303531",
+        "type": 1
+    },
+    {
+        "SNS": "instagram",
+        "birthday": "1999-02-05",
+        "email": "한예슬738@gmail.com",
+        "favorite": false,
+        "location": "도쿄",
+        "memo": "행복은 마음에서",
+        "name": "한예슬",
+        "phone": "01036381746",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "1990-06-05",
+        "email": "송중기951@naver.com",
+        "favorite": false,
+        "location": "런던",
+        "memo": "긍정의 힘",
+        "name": "송중기",
+        "phone": "01068746546",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "1994-12-22",
+        "email": "전지현851@hanmail.net",
+        "favorite": true,
+        "location": "런던",
+        "memo": "인생은 아름다워",
+        "name": "전지현",
+        "phone": "01055813334",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "2002-03-14",
+        "email": "서강준359@hanmail.net",
+        "favorite": false,
+        "location": "런던",
+        "memo": "오늘도 파이팅!",
+        "name": "서강준",
+        "phone": "01017140210",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "2005-08-29",
+        "email": "유재석565@veda.com",
+        "favorite": false,
+        "location": "도쿄",
+        "memo": "오늘도 파이팅!",
+        "name": "유재석",
+        "phone": "01079171130",
+        "type": 1
+    },
+    {
+        "SNS": "twitter",
+        "birthday": "2014-10-16",
+        "email": "정해인936@naver.com",
+        "favorite": true,
+        "location": "도쿄",
+        "memo": "행복은 마음에서",
+        "name": "정해인",
+        "phone": "01049137195",
+        "type": 1
+    },
+    {
+        "SNS": "instagram",
+        "birthday": "2008-12-09",
+        "email": "김소현621@hanmail.net",
+        "favorite": true,
+        "location": "부산시",
+        "memo": "긍정의 힘",
+        "name": "김소현",
+        "phone": "01049456787",
+        "type": 1
+    },
+    {
+        "SNS": "twitter",
+        "birthday": "1995-08-06",
+        "email": "이준기610@hanmail.net",
+        "favorite": false,
+        "location": "런던",
+        "memo": "인생은 아름다워",
+        "name": "이준기",
+        "phone": "01092953688",
+        "type": 1
+    },
+    {
+        "SNS": "facebook",
+        "birthday": "1996-10-22",
+        "email": "하정우610@veda.com",
+        "favorite": true,
+        "location": "부산시",
+        "memo": "인생은 아름다워",
+        "name": "하정우",
+        "phone": "01046857850",
+        "type": 1
+    },
+    {
+        "SNS": "facebook",
+        "birthday": "1998-04-26",
+        "email": "수지637@gmail.com",
+        "favorite": false,
+        "location": "런던",
+        "memo": "기회는 준비된 자에게",
+        "name": "수지",
+        "phone": "01076192660",
+        "type": 1
+    },
+    {
+        "SNS": "facebook",
+        "birthday": "2015-12-11",
+        "email": "이병헌510@naver.com",
+        "favorite": true,
+        "location": "부산시",
+        "memo": "도전은 멋져",
+        "name": "이병헌",
+        "phone": "01057318650",
+        "type": 1
+    },
+    {
+        "SNS": "",
+        "birthday": "1994-04-15",
+        "email": "한가인415@naver.com",
+        "favorite": false,
+        "location": "서울시",
+        "memo": "할 수 있다!",
+        "name": "한가인",
+        "phone": "01025714039",
+        "type": 1
+    },
+    {
+        "SNS": "twitter",
+        "birthday": "2017-01-25",
+        "email": "정우성792@veda.com",
+        "favorite": false,
+        "location": "서울시",
+        "memo": "늘 감사하자",
+        "name": "정우성",
+        "phone": "01012181441",
+        "type": 1
+    }
+]
