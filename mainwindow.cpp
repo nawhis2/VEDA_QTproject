@@ -36,6 +36,12 @@ MainWindow::MainWindow(QWidget *parent)
         }
 
         Contact* contact = static_cast<Contact*>(currentSelected.internalPointer());
+        qDebug() << contact ;
+        if (contact == nullptr)
+        {
+            QMessageBox::warning(this, "Warning", "문제가 발생하였습니다.");
+            return;
+        }
         model->removeContact(contact);
 
         currentSelected = QModelIndex(); // 선택 초기화
@@ -64,6 +70,11 @@ MainWindow::MainWindow(QWidget *parent)
             addNewContact();
             clearDetailWindow();
 
+            // if (contact->favorite)
+            // {
+            //     model->updateFavoriteGroup(contact, contact->favorite);
+            // }
+
             // 즐겨찾기 여부에 따라 parent 설정
             QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
             // 디테일 페이지에서 디폴트 페이지로 전환
@@ -71,22 +82,23 @@ MainWindow::MainWindow(QWidget *parent)
         }
         else
         {
-            editContact(static_cast<Contact*>(currentDetailData.internalPointer()));
+            Contact *contact = static_cast<Contact*>(currentDetailData.internalPointer());
+            editContact(contact);
             setDetailWindow(currentDetailData);
             // model->rebuildModelData();
+            // if (contact->favorite)
+            // {
+            //     model->updateFavoriteGroup(contact, contact->favorite);
+            // }
             QMessageBox::information(this, "변경완료", "연락처가 변경되었습니다");
         }
-
     });
 
     connect(ui->pushButton_SNS, &QPushButton::clicked, this, [&](){
         QDesktopServices::openUrl(QUrl("https://instagram.com/" + ui->lineEdit_SNS->text()));
     });
-
-
 }
 
-//-------------------------------------------------------------
 void MainWindow::addNewContact()
 {
     Contact *newContact = new Contact();
@@ -115,7 +127,6 @@ void MainWindow::editContact(Contact *contact)
     contact->memo = ui->textEdit_Memo->toPlainText();
     contact->type = DataType::CONTACT;
     contact->id = QUuid::createUuid().toString();
-
 }
 
 void MainWindow::clearDetailWindow()
@@ -143,6 +154,7 @@ void MainWindow::setDetailWindow(const QModelIndex &index)
     ui->lineEdit_SNS->setText(contact->SNS);
     ui->lineEdit_Location->setText(contact->location); // 존재하는 경우
     ui->dateEdit->setDate(contact->birthday);
+    // ui->checkBox_Favorite->checkState();
     ui->textEdit_Memo->setText(contact->memo);
     ui->checkBox_Favorite->setChecked(contact->favorite);
 }
@@ -171,8 +183,8 @@ MainWindow::~MainWindow()
 //-----------------------------------------------------------
 
 Contact* MainWindow::findFavoriteGroup() {
-    for (Contact* c : model->getRoot()->children) {
-        if (c->name == "Favorite") {
+    for (const auto& c : model->getRoot()->children) {
+        if (c->name == "Favorite" && c->type == DataType::GROUP) {
             return c;
         }
     }

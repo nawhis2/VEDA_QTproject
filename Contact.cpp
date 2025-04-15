@@ -161,9 +161,43 @@ void ContactModel::deleteTree(Contact* node)
 }
 
 // 선택된 노드 → QModelIndex 생성 (트리뷰 삽입 시 parentIndex 필요)
-QModelIndex ContactModel::createIndexForNode(Contact* node) const {
+QModelIndex ContactModel::createIndexForNode(Contact* node) const
+{
     if (node == root) return QModelIndex(); // 루트는 invalid index
     Contact* parent = node->parent;
     int row = parent ? parent->children.indexOf(node) : 0;
     return createIndex(row, 0, node);
 }
+
+// void ContactModel::updateFavoriteGroup(Contact* contact, bool isFavorite)
+// {
+//     Contact* favGroup = [&]() -> Contact*{
+//         for (Contact* group : root->children)
+//             if (group->name == "Favorite" && group->type == DataType::GROUP)
+//                 return group;
+//         return nullptr;
+//     }();
+
+//     if (!favGroup || !contact) return;
+//     if (isFavorite)
+//     {
+//         if (!favGroup->children.contains(contact))
+//         {
+//             int insertRow = favGroup->children.size();
+//             beginInsertRows(createIndexForNode(favGroup), insertRow, insertRow);
+//             favGroup->children.append(contact);
+//             contact->parent = favGroup;
+//             endInsertRows();
+//         }
+//     }
+//     else {
+//         int row = favGroup->children.indexOf(contact);
+//         if (row >= 0)
+//         {
+//             beginRemoveRows(createIndexForNode(favGroup), row, row);
+//             favGroup->children.removeAt(row);
+//             // ⚠️ parent 유지할지 지울지 정책에 따라 다르게
+//             endRemoveRows();
+//         }
+//     }
+// }
