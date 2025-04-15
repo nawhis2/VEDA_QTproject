@@ -4,13 +4,13 @@ ContactModel::ContactModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
     // 트리의 루트 노드 생성
-    root = new Contact{QUuid::createUuid(), "ROOT", DataType::GROUP, "", {}, 0, "", "", "", nullptr};
+    root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
 
     // 테스트용 자식 그룹/연락처 삽입
-    Contact* group_Favorite = new Contact{QUuid::createUuid(), "Favorite", DataType::GROUP, "", {}, 0, "", "", "", root};
-    Contact* group_Birth = new Contact{QUuid::createUuid(), "Birth Day", DataType::GROUP, "", {}, 0, "", "", "", root};
-    Contact* mom = new Contact{QUuid::createUuid(), "엄마", DataType::CONTACT, "010-1234-5678", {},0, "", "", "", group_Favorite};
-    Contact* dad = new Contact{QUuid::createUuid(), "아빠", DataType::CONTACT, "010-1111-2222", {},0, "", "", "", group_Favorite};
+    Contact* group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
+    Contact* group_Birth = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Birth Day",  "", {}, 0, "", "","", "", root};
+    Contact* mom = new Contact{DataType::CONTACT,QUuid::createUuid().toString(), "엄마",  "010-1234-5678", {},0, "", "","", "", group_Favorite};
+    Contact* dad = new Contact{ DataType::CONTACT, QUuid::createUuid().toString(), "아빠","010-1111-2222", {},0, "", "","", "", group_Favorite};
 
     group_Favorite->children.append(mom);
     group_Favorite->children.append(dad);
@@ -56,7 +56,7 @@ int ContactModel::rowCount(const QModelIndex& parent) const {
 // 열 수 (보통 1~3)
 int ContactModel::columnCount(const QModelIndex&) const
 {
-    return 2; // 이름, 전화번호
+    return 1; // 이름, 전화번호
 }
 
 

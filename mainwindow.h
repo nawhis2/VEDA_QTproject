@@ -30,6 +30,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void addNewContact();
+    void clearDetailWindow();
+    void setDetailWindow(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
