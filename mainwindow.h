@@ -17,6 +17,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QPixmap>
+#include <QFontDatabase>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

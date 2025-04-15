@@ -12,5 +12,6 @@
         <file>resources/off.png</file>
         <file>resources/people.png</file>
         <file>resources/file.png</file>
+        <file>resources/DungGeunMo.ttf</file>
     </qresource>
 </RCC>

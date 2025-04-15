@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     QString fullStyle = R"(
     QWidget {
+        font-family: 'DungGeunMo';
         background-color: lavender;
         color: black;
         font-size: 12px;
@@ -52,6 +53,22 @@ MainWindow::MainWindow(QWidget *parent)
         border: none;
     }
 )";
+
+    int id = QFontDatabase::addApplicationFont(":resources/DungGeunMo.ttf");
+
+    if (id != -1) {
+        QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+        QFont customFont(family);
+        customFont.setPointSize(12);  // 글자 크기 설정
+        qApp->setFont(customFont);    // 앱 전체에 적용
+    } else
+    {
+        qDebug() << "폰트 로드 실패!";
+    }
+    qDebug() << "로드된 폰트 수:" << QFontDatabase::applicationFontFamilies(id).size();
+    qDebug() << "폰트 이름:" << QFontDatabase::applicationFontFamilies(id);
+
+
     ui->setupUi(this);
     this->setStyleSheet(fullStyle);
 
@@ -97,6 +114,8 @@ MainWindow::MainWindow(QWidget *parent)
         padding-bottom: 8px;
     }
 )");
+
+
     //-----------------------------------------------------------------------
 
     ui->dateEdit->setDate(QDate::currentDate());
