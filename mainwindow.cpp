@@ -240,7 +240,11 @@ MainWindow::MainWindow(QWidget *parent)
         {
             Contact *contact = static_cast<Contact*>(currentDetailData.internalPointer());
             qDebug() << contact;
-            bool isToggled = (contact->favorite != ui->checkBox_Favorite->checkState()) ? 1 : 0;
+            bool isToggled = 0;
+            if (contact->favorite == 0 && ui->checkBox_Favorite->checkState() == Qt::Checked ||
+                contact->favorite == 1 && ui->checkBox_Favorite->checkState() == Qt::Unchecked)
+                isToggled = 1;
+
             editContact(contact);
             qDebug() << "toggle : " << isToggled;
             // errorpoint;
