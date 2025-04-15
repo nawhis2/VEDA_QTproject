@@ -169,6 +169,21 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     // ---  window 2  ---
+    ui->lineEdit_Name->setMaxLength(20); // 20자까지만 입력 허용
+    QIntValidator* validator = new QIntValidator(0, 99999999999, this);  // 최대 11자리 숫자
+    ui->lineEdit_Call->setValidator(validator);
+    // ui->lineEdit_Call->setMaxLength(20); // 20자까지만 입력 허용
+    ui->lineEdit_Email->setMaxLength(30); // 20자까지만 입력 허용
+    ui->lineEdit_Location->setMaxLength(50); // 20자까지만 입력 허용
+    ui->lineEdit_SNS->setMaxLength(20); // 20자까지만 입력 허용
+
+    ui->lineEdit_Email->setPlaceholderText("example@email.com");
+    ui->lineEdit_Call->setPlaceholderText("숫자만 입력하세요...");
+    ui->lineEdit_Name->setPlaceholderText("이름을 입력하세요...");
+    ui->lineEdit_Location->setPlaceholderText("주소를 입력하세요...");
+    ui->lineEdit_SNS->setPlaceholderText("@_______");
+
+
     connect(ui->pushButton_Goback, &QPushButton::clicked, this, [&](){
         ui->stackedWidget->setCurrentWidget(ui->defaultPage);
     });
