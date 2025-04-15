@@ -72,6 +72,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setStyleSheet(fullStyle);
 
+    // 생일자배너
+    bannerLabel = new QLabel(this);
+    bannerLabel->setStyleSheet("color: #000000; font-weight: bold; padding: 5px;");
+    bannerLabel->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+
+    // 시작 위치: 창 바깥 오른쪽
+    int startX = this->width();
+    int endX = -bannerLabel->width();
+
+    bannerLabel->move(startX, this->height() - bannerLabel->height() - 10); // 하단에서 10px 위
+
+    // 애니메이션
+    bannerAnimation = new QPropertyAnimation(bannerLabel, "pos");
+    bannerAnimation->setDuration(10000); // 10초
+    bannerAnimation->setStartValue(QPoint(startX, bannerLabel->y()));
+    bannerAnimation->setEndValue(QPoint(endX, bannerLabel->y()));
+    bannerAnimation->setLoopCount(-1); // 무한 반복
+    bannerAnimation->start();
+
+
     QPixmap insta(":resources/Link.png");
     ui->pushButton_SNS->setIcon(QIcon(insta));
 
@@ -123,7 +143,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->treeView_PhoneBook->setModel(model);
     ui->treeView_PhoneBook->setHeaderHidden(false); // 헤더 보이기
+    updateBirthdayLabel();
 
+    connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, [&](int index) {
+        if (index == 0) { // 메인 페이지
+            updateBirthdayLabel();
+            bannerLabel->show();
+            startBannerAnimation(); // 새로 시작
+        } else {
+            bannerAnimation->stop();
+            bannerLabel->hide();
+        }
+    });
     connect(ui->pushButton_Search, &QPushButton::clicked, this, &MainWindow::slot_search);
     connect(ui->pushButton_SaveFile, &QPushButton::clicked, this, &MainWindow::saveToJson);
     connect(ui->pushButton_LoadFile, &QPushButton::clicked, this, &MainWindow::loadToJson);
@@ -153,7 +184,7 @@ MainWindow::MainWindow(QWidget *parent)
             return;
         }
         model->removeContact(contact);
-
+        updateBirthdayLabel();
         currentSelected = QModelIndex(); // 선택 초기화
     });
 
@@ -255,7 +286,6 @@ void MainWindow::editContact(Contact *contact)
     contact->SNS = ui->lineEdit_SNS->text();
     contact->memo = ui->textEdit_Memo->toPlainText();
     contact->type = DataType::CONTACT;
-    contact->id = QUuid::createUuid().toString();
     // qDebug() << "Toggling complete";
 
 }
@@ -287,6 +317,28 @@ void MainWindow::setDetailWindow(const QModelIndex &index)
     ui->dateEdit->setDate(contact->birthday);
     ui->textEdit_Memo->setText(contact->memo);
     ui->checkBox_Favorite->setChecked(contact->favorite);
+}
+
+void MainWindow::updateBirthdayLabel()
+{
+    QString BirthdayPeople = " ";
+    int cnt = 0;
+    for (auto& c : model->getList())
+    {
+        if (c->birthday.month() == QDate::currentDate().month() &&
+            c->birthday.day() == QDate::currentDate().day())
+        {
+            BirthdayPeople += c->name + " ";
+            cnt++;
+        }
+
+    }
+    bannerLabel->resize(400 + cnt * 200, 30);
+    if (BirthdayPeople == " ")
+        bannerLabel->setText("오늘의 생일자가 없습니다...");
+    else
+        bannerLabel->setText("🎉 오늘은"+ BirthdayPeople + "님의 생일입니다. 축하합니다! 🎂");
+
 }
 
 void MainWindow::slot_search()
@@ -366,7 +418,6 @@ void MainWindow::saveToJson()
 //Json 파일 불러오기
 void MainWindow::loadToJson()
 {
-    model->clearAll();
     QString path = QFileDialog::getOpenFileName(this, "연락처_파일_불러오기");
         // getSaveFileName(this, "연락처_파일_저장");
     QFile file(path);
@@ -375,7 +426,7 @@ void MainWindow::loadToJson()
         QMessageBox::warning(this, "오류", "파일을 불러올 수 없습니다");
         return;
     }
-
+    model->clearAll();
     QByteArray data = file.readAll();
     QJsonDocument doc = QJsonDocument::fromJson(data);
 
@@ -394,7 +445,8 @@ void MainWindow::loadToJson()
         else
             c->type = DataType::CONTACT;
 
-        c->birthday.toString(Qt::ISODate) = obj["birthday"].toString();
+        QStringList date = obj["birthday"].toString().split('-');
+        c->birthday.setDate((date.at(0)).toInt(), date.at(1).toInt(), date.at(2).toInt());
         c->SNS = obj["SNS"].toString();
         c->location = obj["location"].toString();
         c->memo = obj["memo"].toString();
@@ -404,7 +456,19 @@ void MainWindow::loadToJson()
         else
             model->addContact(c, model->getRoot());
     }
-
+    updateBirthdayLabel();
     QMessageBox::information(this, "불러오기 완료", "연락처를 불러왔습니다");
 }
 
+void MainWindow::startBannerAnimation() {
+    int startX = this->width();
+    int endX = -bannerLabel->width();
+
+    bannerLabel->move(startX, bannerLabel->y());
+
+    bannerAnimation->stop();
+    bannerAnimation->setDuration(10000);
+    bannerAnimation->setStartValue(QPoint(startX, bannerLabel->y()));
+    bannerAnimation->setEndValue(QPoint(endX, bannerLabel->y()));
+    bannerAnimation->start();
+}

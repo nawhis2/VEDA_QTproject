@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="defaultPage">
      <widget class="QPushButton" name="pushButton_Search">
@@ -112,7 +112,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>  종 료   </string>
+       <string> 종 료  </string>
       </property>
      </widget>
     </widget>
@@ -267,7 +267,7 @@
      <x>0</x>
      <y>0</y>
      <width>483</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

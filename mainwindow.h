@@ -18,6 +18,8 @@
 #include <QFileDialog>
 #include <QPixmap>
 #include <QFontDatabase>
+#include <QPropertyAnimation>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -44,11 +46,15 @@ public:
     void editContact(Contact *contact);
     void saveToJson();
     void loadToJson();
+    void startBannerAnimation();
 
+    void updateBirthdayLabel();
 
 private:
     Ui::MainWindow *ui;
     Contact* findFavoriteGroup();
+    QLabel* bannerLabel;
+    QPropertyAnimation *bannerAnimation;
 
 public slots:
     // void slot_add();
