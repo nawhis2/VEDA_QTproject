@@ -37,7 +37,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>검색</string>
+       <string> 검 색</string>
       </property>
      </widget>
      <widget class="QTreeView" name="treeView_PhoneBook">
@@ -60,7 +60,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>추가</string>
+       <string> 추 가</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_Delete">
@@ -73,7 +73,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>제거</string>
+       <string> 제 거</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_LoadFile">
@@ -112,7 +112,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>종 료</string>
+       <string>  종 료   </string>
       </property>
      </widget>
     </widget>
@@ -172,7 +172,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_Name">
          <property name="text">
-          <string>이름</string>
+          <string>이 름</string>
          </property>
         </widget>
        </item>
@@ -182,7 +182,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_Call">
          <property name="text">
-          <string>번호</string>
+          <string>번 호</string>
          </property>
         </widget>
        </item>
@@ -202,7 +202,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_Location">
          <property name="text">
-          <string>주소</string>
+          <string>주 소</string>
          </property>
         </widget>
        </item>
@@ -212,7 +212,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_Birthday">
          <property name="text">
-          <string>생일</string>
+          <string>생 일</string>
          </property>
         </widget>
        </item>
