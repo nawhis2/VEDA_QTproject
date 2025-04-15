@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/Back.png</file>
+        <file>resources/Link.png</file>
+        <file>resources/LoadFile.png</file>
+        <file>resources/SaveFile.png</file>
+        <file>resources/UserPlus.png</file>
+        <file>resources/UserX.png</file>
+        <file>resources/Search.png</file>
+    </qresource>
+</RCC>

@@ -16,7 +16,7 @@
 #include <QJsonDocument>
 #include <QFile>
 #include <QFileDialog>
-
+#include <QPixmap>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

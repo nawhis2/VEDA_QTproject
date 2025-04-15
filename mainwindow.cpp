@@ -6,8 +6,77 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+
 {
+    QString fullStyle = R"(
+    QWidget {
+        background-color: lavender;
+        color: black;
+        font-size: 12px;
+    }
+
+    QLineEdit, QDateEdit, QTextEdit {
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    QPushButton {
+        background-color: #b19cd9;
+        color: black;
+        border: none;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 8px;
+    }
+
+    QPushButton:hover {
+        background-color: #a58ed6;
+    }
+
+    QPushButton:pressed {
+        background-color: #9370db;
+    }
+
+    QTreeView {
+        background-color: #f5f0ff;
+        border: 1px solid #d0c4e8;
+    }
+
+    QHeaderView::section {
+        background-color: #d6c6f0;
+        color: black;
+        padding: 4px;
+        border: none;
+    }
+)";
     ui->setupUi(this);
+    this->setStyleSheet(fullStyle);
+
+    QPixmap insta(":resources/Link.png");
+    ui->pushButton_SNS->setIcon(QIcon(insta));
+
+    QPixmap plus(":resources/UserPlus.png");
+    ui->pushButton_Add->setIcon(QIcon(plus));
+
+    QPixmap minus(":resources/UserX.png");
+    ui->pushButton_Delete->setIcon(QIcon(minus));
+
+    QPixmap savef(":resources/SaveFile.png");
+    ui->pushButton_SaveFile->setIcon(QIcon(savef));
+
+    QPixmap loadf(":resources/LoadFile.png");
+    ui->pushButton_LoadFile->setIcon(QIcon(loadf));
+
+    QPixmap search(":resources/Search.png");
+    ui->pushButton_Search->setIcon(QIcon(search));
+
+
+
+    //-----------------------------------------------------------------------
+
     ui->dateEdit->setDate(QDate::currentDate());
     model = new ContactModel(this);
 
