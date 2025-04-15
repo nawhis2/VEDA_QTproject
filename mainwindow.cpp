@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
         font-family: 'DungGeunMo';
         background-color: lavender;
         color: black;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     QLineEdit, QDateEdit, QTextEdit {
@@ -189,7 +189,12 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui->pushButton_Save, &QPushButton::clicked, this, [&](){
-        qDebug() << "hi";
+        if (ui->lineEdit_Name->text() == "")
+        {
+            QMessageBox::warning(this, "Error", "이름을 입력하세요");
+            return ;
+        }
+
         if (currentDetailData == QModelIndex())
         {
             addNewContact();
@@ -394,7 +399,10 @@ void MainWindow::loadToJson()
         c->location = obj["location"].toString();
         c->memo = obj["memo"].toString();
 
-        model->addContact(c, model->getRoot());
+        if (c->favorite)
+            model->addContact(c, model->getFavorite());
+        else
+            model->addContact(c, model->getRoot());
     }
 
     QMessageBox::information(this, "불러오기 완료", "연락처를 불러왔습니다");

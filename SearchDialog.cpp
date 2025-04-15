@@ -8,7 +8,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 {
     uis->setupUi(this);
 
-
+    uis->lineEdit->setPlaceholderText("찾을 이름을 입력해주세요...");
     //-------------------------------------------------------------
     //헤더 표시
     resultModel = new QStandardItemModel();
@@ -22,7 +22,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
     // 열 너비 고정
     uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
-    uis->tableView->setColumnWidth(1, 220); // 전화번호 열 너비
+    uis->tableView->setColumnWidth(1, 230); // 전화번호 열 너비
 
     // 자동 리사이즈 비활성화
     uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
@@ -54,6 +54,13 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
         //키워드 입력 안했을 경우, 메세지 박스
         if (keyword == "") {
+            // 열 너비 고정
+            uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
+            uis->tableView->setColumnWidth(1, 230); // 전화번호 열 너비
+
+            // 자동 리사이즈 비활성화
+            uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+            uis->tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
             QMessageBox::warning(this, "", "이름을 입력해주세요.");
             return;
         }
@@ -74,7 +81,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
                 // 열 너비 고정
                 uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
-                uis->tableView->setColumnWidth(1, 220); // 전화번호 열 너비
+                uis->tableView->setColumnWidth(1, 230); // 전화번호 열 너비
 
                 // 자동 리사이즈 비활성화
                 uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
@@ -84,6 +91,13 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
         //키워드 검색 결과 없을 경우, 메세지 박스
         if (count == 0) {
+            // 열 너비 고정
+            uis->tableView->setColumnWidth(0, 120); // 이름 열 너비
+            uis->tableView->setColumnWidth(1, 230); // 전화번호 열 너비
+
+            // 자동 리사이즈 비활성화
+            uis->tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+            uis->tableView->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
             QMessageBox::warning(this, "", "검색 결과가 없습니다.");
             return;
         }

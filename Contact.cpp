@@ -92,6 +92,7 @@ QVariant ContactModel::headerData(int section, Qt::Orientation orientation, int 
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
     {
         if (section == 0) return "연락처";
+        if (section == 1) return "전화번호";
     }
     return QVariant();
 }
@@ -104,6 +105,11 @@ QList<Contact*>&  ContactModel::getList()
 Contact* ContactModel::getRoot()
 {
     return root;
+}
+
+Contact* ContactModel::getFavorite()
+{
+    return group_Favorite;
 }
 
 void ContactModel::addContact(Contact* contact, Contact* parent)
@@ -141,7 +147,7 @@ void ContactModel::clearAll()
     deleteTree(root);
 
     root = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "ROOT",  "", {}, 0, "", "", "", nullptr};
-    Contact* group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
+    group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
 
     root->children.append(group_Favorite);
 

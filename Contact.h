@@ -35,7 +35,7 @@ struct Contact {
     QList<Contact*> children;
 
     int childIndex(Contact* child) const {
-        return children.indexOf(child);  // m_children: QList<Contact*>
+        return children.indexOf(child);
     }
 
     void removeChild(Contact* child)
@@ -60,11 +60,12 @@ class ContactModel : public QAbstractItemModel
     Q_OBJECT
 
     QList<Contact*>  allContacts;
+
     Contact*    root;
     Contact*    group_Favorite;
 
-
 public:
+
     explicit ContactModel(QObject* parent = nullptr);
 
     // 필수 override
@@ -83,6 +84,7 @@ public:
 
     QList<Contact*>&  getList();
     Contact* getRoot();
+    Contact* getFavorite();
 
     void addContact(Contact* contact, Contact* parent);
     void removeContact(Contact* contact);
