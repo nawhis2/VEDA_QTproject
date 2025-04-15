@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButton_Add, &QPushButton::clicked, this, [&](){
         ui->stackedWidget->setCurrentWidget(ui->detailPage);
+        currentDetailData = QModelIndex();
         clearDetailWindow();
     });
 
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
 
         Contact* contact = static_cast<Contact*>(index.internalPointer());
         if (!contact || contact->type == DataType::GROUP) return;
+
+        currentDetailData = index;
         ui->stackedWidget->setCurrentWidget(ui->detailPage);
 
         setDetailWindow(index);
@@ -54,14 +57,28 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui->pushButton_Save, &QPushButton::clicked, this, [&](){
-        addNewContact();
-        clearDetailWindow();
+        if (currentDetailData == QModelIndex())
+        {
+            addNewContact();
+            clearDetailWindow();
 
-        // 즐겨찾기 여부에 따라 parent 설정
-        QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
+            // 즐겨찾기 여부에 따라 parent 설정
+            QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
+            // 디테일 페이지에서 디폴트 페이지로 전환
+            ui->stackedWidget->setCurrentWidget(ui->defaultPage);
+        }
+        else
+        {
+            editContact(static_cast<Contact*>(currentDetailData.internalPointer()));
+            setDetailWindow(currentDetailData);
+            // model->rebuildModelData();
+            QMessageBox::information(this, "변경완료", "연락처가 변경되었습니다");
+        }
 
-        // 디테일 페이지에서 디폴트 페이지로 전환
-        ui->stackedWidget->setCurrentWidget(ui->defaultPage);
+    });
+
+    connect(ui->pushButton_SNS, &QPushButton::clicked, this, [&](){
+        QDesktopServices::openUrl(QUrl("https://instagram.com/" + ui->lineEdit_SNS->text()));
     });
 
 
@@ -70,16 +87,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::addNewContact()
 {
     Contact *newContact = new Contact();
-    newContact->name = ui->lineEdit_Name->text();
-    newContact->phone= ui->lineEdit_Call->text();
-    newContact->birthday = ui->dateEdit->date();
-    newContact->location = ui->lineEdit_Location->text();
-    newContact->favorite = ui->checkBox_Favorite->isChecked() ? 1 : 0;
-    newContact->email= ui->lineEdit_Email->text();
-    newContact->SNS = ui->lineEdit_SNS->text();
-    newContact->memo = ui->textEdit_Memo->toPlainText();
-    newContact->type = DataType::CONTACT;
-    newContact->id = QUuid::createUuid().toString();
+    editContact(newContact);
 
     Contact* parent = nullptr;
     if (newContact->favorite == 1) {
@@ -90,6 +98,21 @@ void MainWindow::addNewContact()
     }
 
     model->addContact(newContact, parent);
+}
+
+void MainWindow::editContact(Contact *contact)
+{
+    contact->name = ui->lineEdit_Name->text();
+    contact->phone= ui->lineEdit_Call->text();
+    contact->birthday = ui->dateEdit->date();
+    contact->location = ui->lineEdit_Location->text();
+    contact->favorite = ui->checkBox_Favorite->isChecked() ? 1 : 0;
+    contact->email= ui->lineEdit_Email->text();
+    contact->SNS = ui->lineEdit_SNS->text();
+    contact->memo = ui->textEdit_Memo->toPlainText();
+    contact->type = DataType::CONTACT;
+    contact->id = QUuid::createUuid().toString();
+
 }
 
 void MainWindow::clearDetailWindow()

@@ -9,8 +9,8 @@ ContactModel::ContactModel(QObject* parent)
     // 테스트용 자식 그룹/연락처 삽입
     Contact* group_Favorite = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Favorite",  "", {}, 0, "", "","", "", root};
     Contact* group_Birth = new Contact{DataType::GROUP,QUuid::createUuid().toString(), "Birth Day",  "", {}, 0, "", "","", "", root};
-    Contact* mom = new Contact{DataType::CONTACT,QUuid::createUuid().toString(), "엄마",  "010-1234-5678", {},0, "", "","", "", group_Favorite};
-    Contact* dad = new Contact{ DataType::CONTACT, QUuid::createUuid().toString(), "아빠","010-1111-2222", {},0, "", "","", "", group_Favorite};
+    Contact* mom = new Contact{DataType::CONTACT,QUuid::createUuid().toString(), "엄마",  "010-1234-5678", {},1, "", "","", "", group_Favorite};
+    Contact* dad = new Contact{ DataType::CONTACT, QUuid::createUuid().toString(), "아빠","010-1111-2222", {},1, "", "","", "", group_Favorite};
 
     group_Favorite->children.append(mom);
     group_Favorite->children.append(dad);
@@ -61,6 +61,7 @@ int ContactModel::columnCount(const QModelIndex&) const
 
 
 // 	표시할 데이터
+
 QVariant ContactModel::data(const QModelIndex& index, int role) const {
     if (!index.isValid()) return QVariant();
 

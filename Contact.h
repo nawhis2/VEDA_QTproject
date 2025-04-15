@@ -13,6 +13,7 @@ enum class DataType {
     CONTACT
 };
 
+
 struct Contact {
     DataType    type;
     QString       id;
@@ -62,6 +63,7 @@ public:
 
     void addContact(Contact* contact, Contact* parent);
     void removeContact(Contact* contact);
+    // void rebuildModelData();
     QModelIndex createIndexForNode(Contact* node) const;
   };
 

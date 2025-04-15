@@ -9,6 +9,7 @@
 #include <QTreeView>
 #include <QDate>
 #include <QDateEdit>
+#include <QDesktopServices>
 #include "Contact.h"
 
 QT_BEGIN_NAMESPACE
@@ -24,6 +25,7 @@ class MainWindow : public QMainWindow
     ContactModel*   model;
     QTreeView*      treeView;
     QModelIndex     currentSelected;
+    QModelIndex     currentDetailData;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -32,6 +34,7 @@ public:
     void addNewContact();
     void clearDetailWindow();
     void setDetailWindow(const QModelIndex &index);
+    void editContact(Contact *contact);
 
 private:
     Ui::MainWindow *ui;
