@@ -17,6 +17,9 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
     resultView = new QTableView(this);
     resultView->setModel(resultModel);
 
+    //읽기 전용
+    resultView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     resultView->resize(300, 200);
     resultView->move(80,100);
 
@@ -58,6 +61,11 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
     });
 
 }
+
+// //검색 결과 더블클릭시 디테일 창 전환
+// connect(resultView, &QTableView::doubleclicked, this, [=](const QModelIndex &index){
+
+// });
 
 void SearchDialog::performSearch(const QString& keyword)
 {}
