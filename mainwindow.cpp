@@ -58,11 +58,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_Save, &QPushButton::clicked, this, [&](){
         addNewContact();
         clearDetailWindow();
-        QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
-    });
 
-    // connect(ui->checkBox_Favorite, &QCheckBox::clicked, this,  )
-    // connect(ui->pu)
+        // 즐겨찾기 여부에 따라 parent 설정
+        QMessageBox::information(this, "추가완료", "연락처가 추가되었습니다");
+
+        // 디테일 페이지에서 디폴트 페이지로 전환
+        ui->stackedWidget->setCurrentWidget(ui->defaultPage);
+    });
 }
 
 void MainWindow::addNewContact()
@@ -72,13 +74,21 @@ void MainWindow::addNewContact()
     newContact->phone= ui->lineEdit_Call->text();
     newContact->birthday = ui->dateEdit->date();
     newContact->location = ui->lineEdit_Location->text();
-    newContact->favorite = 0;
+    newContact->favorite = ui->checkBox_Favorite->isChecked() ? 1 : 0;
     newContact->email= ui->lineEdit_Email->text();
     newContact->SNS = ui->lineEdit_SNS->text();
     newContact->memo = ui->textEdit_Memo->toPlainText();
     newContact->type = DataType::CONTACT;
     newContact->id = QUuid::createUuid().toString();
-    Contact *parent = model->getRoot();
+
+    Contact* parent = nullptr;
+    if (newContact->favorite == 1) {
+        parent = findFavoriteGroup();
+    }
+    if (!parent) {
+        parent = model->getRoot(); // fallback
+    }
+
     model->addContact(newContact, parent);
 }
 
@@ -119,3 +129,11 @@ void MainWindow::slot_search()
 MainWindow::~MainWindow()
 {}
 
+Contact* MainWindow::findFavoriteGroup() {
+    for (Contact* c : model->getRoot()->children) {
+        if (c->name == "Favorite") {
+            return c;
+        }
+    }
+    return nullptr;
+}

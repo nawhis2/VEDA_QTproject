@@ -36,7 +36,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
+    Contact* findFavoriteGroup();
 
 public slots:
     // void slot_add();
