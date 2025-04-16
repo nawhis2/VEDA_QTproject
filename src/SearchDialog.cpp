@@ -11,6 +11,7 @@ SearchDialog::SearchDialog(const QList<Contact*>& allContacts, QWidget* parent)
 
     SetModelView();
     SettableUi();
+    setWindowTitle("검색창");
 
     connect(uis->tableView, &QTableView::doubleClicked, this, [=](const QModelIndex &index){
         if(!index.isValid()) return ;

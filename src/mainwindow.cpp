@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setSystemStyle();
     setBannerProperty();
+    setWindowTitle("강한 VEDA 연락처");
 
     ui->dateEdit->setDate(QDate::currentDate());
     model = new ContactModel(this);
