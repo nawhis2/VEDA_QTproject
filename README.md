@@ -200,7 +200,7 @@ VEDA_QTproject/
 | `startBannerAnimation()` | 배너 애니메이션 시작 위치 및 속도 설정 후 실행 |
 | `setSystemStyle()` | 전체 위젯 스타일(QSS) 적용 및 아이콘/폰트 설정 | 
 
-`MainWindow` 클래스 내에서 사용된 **람다 함수(익명 함수)**
+`MainWindow` 클래스 내에서 사용된 **람다 함수**
 
 | 람다 위치 | 기능 설명 |
 |-----------|-----------|
