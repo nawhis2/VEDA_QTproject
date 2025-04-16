@@ -58,8 +58,3 @@ QString WeatherManager::weatherCodeToText(int code)
         return "알 수 없는 날씨";
     }
 }
-
-QString WeatherManager::getWeatherData()
-{
-    return weatherData;
-}

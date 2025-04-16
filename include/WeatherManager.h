@@ -22,7 +22,6 @@ class WeatherManager : public QObject
 public:
     explicit WeatherManager(QObject*);
     ~WeatherManager();
-    QString                 getWeatherData();
 
 signals:
     void dataReceived(QString weather);
