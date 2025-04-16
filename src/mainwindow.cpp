@@ -137,14 +137,16 @@ MainWindow::MainWindow(QWidget *parent)
         }
     );
 
-
-    // weather API --------------------------------
     weatherManager = new WeatherManager(this);
-    QString weather = weatherManager->getWeatherData();
-    qDebug() << "main " << weather;
-    if (weather == "")
-        QMessageBox::warning(this, "Error", "날씨 데이터 수신에 실패하였습니다.");
-    ui->label_Weather->setText(weather);
+    connect(weatherManager, &WeatherManager::dataReceived, this,
+        [=](QString weather)
+        {
+            if (weather != "")
+                ui->label_Weather->setText("오늘의 날씨 : " + weather);
+            else
+                ui->label_Weather->setText("");
+        }
+    );
 }
 
 void MainWindow::setLineEditProperty()

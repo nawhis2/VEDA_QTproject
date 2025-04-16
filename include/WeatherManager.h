@@ -8,10 +8,13 @@
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QByteArray>
+#include <QMessageBox>
 // #include "mainwindow.h"
 
 class WeatherManager : public QObject
 {
+    Q_OBJECT
+
     QNetworkAccessManager*  manager;
     QString weatherCodeToText(int code);
     QString                 weatherData;
@@ -20,6 +23,9 @@ public:
     explicit WeatherManager(QObject*);
     ~WeatherManager();
     QString                 getWeatherData();
+
+signals:
+    void dataReceived(QString weather);
 };
 
 #endif // WEATHERMANAGER_H
