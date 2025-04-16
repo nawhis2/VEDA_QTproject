@@ -138,7 +138,7 @@ VEDA_QTproject/
 
 ## 소스코드 함수 간단 설명
 
-### 📘 `ContactModel` 클래스
+### `ContactModel` 클래스
 
 | 함수명 | 기능 설명 |
 |--------|-----------|
@@ -163,7 +163,7 @@ VEDA_QTproject/
 
 ---
 
-### 📘 `Contact` 구조체
+### `Contact` 구조체
 
 | 함수명 | 기능 설명 |
 |--------|-----------|
@@ -174,7 +174,7 @@ VEDA_QTproject/
 
 ---
 
-### 📘 `SearchDialog` 클래스
+### `SearchDialog` 클래스
 
 | 함수명 | 기능 설명 |
 |--------|-----------|
@@ -182,7 +182,7 @@ VEDA_QTproject/
 | `SetModelView()` | 검색 결과용 테이블 뷰에 모델을 연결하고 편집 불가능 및 행 번호 숨김 처리 |
 | `SettableUi()` | 테이블 뷰 컬럼 너비 설정 및 리사이즈 모드를 고정으로 지정 |
 
-### 📘 `mainwindow` 클래스
+### `mainwindow` 클래스
 
 | 함수명 | 기능 설명 |
 |--------|-----------|
@@ -217,7 +217,7 @@ VEDA_QTproject/
 
 ---
 
-### 📘 `WeatherManager` 클래스
+### `WeatherManager` 클래스
 
 - 프로그램 실행 시, 초기에 open Meteo API 를 활용하여 날씨정보를 받아 오늘의 날씨로 반영.
 
