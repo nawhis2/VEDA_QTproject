@@ -52,40 +52,39 @@ VEDA_QTproject/
 ![alt text](./images/detail.png)
 
 ### 데이터 제거
+![alt text](./images/delete1.png)
 
-![alt text](./image/delete1.png)
-
-![alt text](./image/delete2.png)
+![alt text](./images/delete2.png)
 
 ### 데이터 검색
 
-![alt text](./image/searchdialog.png)
+![alt text](./images/searchdialog.png)
 
-![alt text](./image/searchresult.png)
+![alt text](./images/searchresult.png)
 
-![alt text](./image/searchdetail.png)
+![alt text](./images/searchdetail.png)
 
 ### 데이터 수정
 
-![alt text](./image/fixdata.png)
+![alt text](./images/fixdata.png)
 
-![alt text](./image/fixcomplete.png)
+![alt text](./images/fixcomplete.png)
 
 ### 데이터 불러오기
 
-![alt text](./image/fileLoad.png)
+![alt text](./images/fileLoad.png)
 
-![alt text](./image/loadcomplete.png)
+![alt text](./images/loadcomplete.png)
 
 ### 데이터 저장
 
-![alt text](./image/savefile.png)
+![alt text](./images/savefile.png)
 
-![alt text](./image/savecomplete.png)
+![alt text](./images/savecomplete.png)
 
 ### 생일자 알림
 
-![alt text](./image/birth.png)
+![alt text](./images/birth.png)
 
 
 ## 문제점
