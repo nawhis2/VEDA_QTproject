@@ -20,12 +20,17 @@
 #include <QFontDatabase>
 #include <QPropertyAnimation>
 #include <QLabel>
+#include <QNetworkAccessManager>
+#include <QByteArray>
+#include <QNetworkReply>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
+
+QString weatherCodeToText(int code);
 
 class MainWindow : public QMainWindow
 {

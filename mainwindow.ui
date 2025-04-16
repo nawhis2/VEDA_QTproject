@@ -115,6 +115,19 @@
        <string> 종 료  </string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_Weather">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>301</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="detailPage">
      <widget class="QPushButton" name="pushButton_Goback">
@@ -267,7 +280,7 @@
      <x>0</x>
      <y>0</y>
      <width>483</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
