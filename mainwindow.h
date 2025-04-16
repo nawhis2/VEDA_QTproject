@@ -2,15 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStandardItemModel>
 #include <QDateEdit>
-#include <QList>
-#include <QTableView>
 #include <QTreeView>
-#include <QDate>
-#include <QDateEdit>
 #include <QDesktopServices>
-#include "Contact.h"
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -23,14 +17,14 @@
 #include <QNetworkAccessManager>
 #include <QByteArray>
 #include <QNetworkReply>
+#include "Contact.h"
+#include "WeatherManager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
-
-QString weatherCodeToText(int code);
 
 class MainWindow : public QMainWindow
 {
@@ -40,6 +34,16 @@ class MainWindow : public QMainWindow
     QTreeView*      treeView;
     QModelIndex     currentSelected;
     QModelIndex     currentDetailData;
+    WeatherManager* weatherManager;
+
+    Ui::MainWindow *ui;
+    QLabel* bannerLabel;
+    QPropertyAnimation *bannerAnimation;
+
+private:
+    void setSystemStyle();
+    void setLineEditProperty();
+    void setBannerProperty();
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -52,17 +56,9 @@ public:
     void saveToJson();
     void loadToJson();
     void startBannerAnimation();
-
     void updateBirthdayLabel();
 
-private:
-    Ui::MainWindow *ui;
-    Contact* findFavoriteGroup();
-    QLabel* bannerLabel;
-    QPropertyAnimation *bannerAnimation;
-
 public slots:
-    // void slot_add();
     void slot_search();
 };
 #endif // MAINWINDOW_H

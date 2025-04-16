@@ -29,6 +29,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Contact.h
         Contact.cpp
         resources.qrc
+        WeatherManager.h
+        WeatherManager.cpp
 
 
     )
