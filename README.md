@@ -134,7 +134,77 @@ VEDA_QTproject/
 - 오늘의 날짜와 일치하는 생일자가 없을 시, 하단에 생일자가 없다고 표시
 - 생일자 연락처 제거 시, 생일 알림도 같이 업데이트
 
+## 소스코드 함수 간단 설명
 
+### 📂 `Contact.h / Contact.cpp`
+
+| 함수명 | 설명 |
+|--------|------|
+| `Contact::Contact` | 연락처 객체 생성자 |
+| `Contact::getName` | 이름 반환 |
+| `Contact::setName` | 이름 설정 |
+| `Contact::isFavorite` | 즐겨찾기 여부 확인 |
+| `Contact::setFavorite` | 즐겨찾기 설정 |
+| `Contact::addChild` / `removeChild` | 자식 연락처 추가/삭제 |
+| `Contact::getChildren` | 하위 연락처 리스트 반환 |
+| `Contact::toJson`, `fromJson` | JSON으로 저장 및 로드 지원 |
+
+---
+
+### 📂 `ContactModel` 관련 (추정: mainwindow.cpp 내부 정의)
+
+| 함수명 | 설명 |
+|--------|------|
+| `index`, `parent`, `rowCount`, `columnCount`, `data` | QAbstractItemModel 오버라이드 – 트리 구조 데이터 제공 |
+| `toggleFavorite` | 특정 연락처 즐겨찾기 토글 |
+| `indexForContact` | Contact 객체 → QModelIndex 변환 |
+| `setBasicGroup` | 기본 그룹 설정 (아마도 루트) |
+
+---
+
+### 📂 `SearchDialog.h / SearchDialog.cpp`
+
+| 함수명 | 설명 |
+|--------|------|
+| `SearchDialog::SearchDialog` | 검색 대화상자 생성자 |
+| `onSearchTextChanged` | 텍스트 입력 시 검색 수행 |
+| `selectResult` | 검색 결과 항목 클릭 시 처리 |
+| `setContactModel` | 외부에서 모델 연결 |
+
+---
+
+### 📂 `WeatherManager.h / WeatherManager.cpp`
+
+| 함수명 | 설명 |
+|--------|------|
+| `WeatherManager::WeatherManager` | 날씨 관리 객체 생성자 |
+| `getWeatherData()` | 날씨 API 응답에서 값 추출 |
+| `requestWeather()` | Open-Meteo API 요청 발생 |
+| `onWeatherReply(QNetworkReply*)` | 응답 수신 후 JSON 파싱 및 시그널 발생 |
+
+---
+
+### 📂 `mainwindow.h / mainwindow.cpp`
+
+| 함수명 | 설명 |
+|--------|------|
+| `MainWindow::MainWindow` | 메인 윈도우 생성자 |
+| `onAddContactClicked` | 연락처 추가 |
+| `onDeleteContactClicked` | 연락처 삭제 |
+| `onSaveToFile` / `onLoadFromFile` | JSON으로 파일 저장/불러오기 |
+| `onSearchClicked` | 검색 대화상자 열기 |
+| `onTreeItemDoubleClicked` | 트리뷰 항목 더블클릭 → 상세보기 |
+| `setSystemStyle`, `setLineEditProperty`, `setBannerProperty` | UI 스타일 설정 관련 내부 함수들 |
+
+---
+
+### 📂 `main.cpp`
+
+| 함수명 | 설명 |
+|--------|------|
+| `main()` | Qt 애플리케이션 진입점 – `MainWindow` 실행 |
+
+---
 
 ## 문제점 및 해결방안
 
