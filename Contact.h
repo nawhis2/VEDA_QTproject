@@ -14,86 +14,60 @@ enum class DataType {
     CONTACT
 };
 
-
 struct Contact {
-    DataType    type;
-    QString     name;
+    DataType        type;
+    QString         name;
 
-    // 연락처 전용 필드 (그룹일 경우 무시됨)
-    QString     phone;
-    QDate       birthday;
-    bool        favorite;
-    QString     email;
-    QString     location;
-    QString     SNS;
-    QString     memo;
+    QString         phone;
+    QDate           birthday;
+    bool            favorite;
+    QString         email;
+    QString         location;
+    QString         SNS;
+    QString         memo;
 
-    // 트리 구조용
-    Contact* parent = nullptr;
+    Contact*        parent = nullptr;
     QList<Contact*> children;
 
-    int childIndex(Contact* child) const {
-        return children.indexOf(child);
-    }
-
-    void removeChild(Contact* child)
-    {
-        children.removeAll(child);
-        child->setParent(nullptr); // 필요 시
-    }
-
-    void insertChild(int row, Contact* child) {
-        children.insert(row, child);
-        child->setParent(this);
-    }
-
-    void setParent(Contact* parent) {
-        this->parent = parent;
-    }
+    int             childIndex(Contact* child) const;
+    void            removeChild(Contact* child);
+    void            insertChild(int row, Contact* child);
+    void            setParent(Contact* parent);
 };
-
 
 class ContactModel : public QAbstractItemModel
 {
     Q_OBJECT
 
-    QList<Contact*>  allContacts;
+    QList<Contact*>     allContacts;
+    Contact*            root;
+    Contact*            group_Favorite;
 
-    Contact*    root;
-    Contact*    group_Favorite;
+private:
+    void                setBasicGroup();
+
+    QModelIndex         index(int row, int column, const QModelIndex& parent = QModelIndex())            const override;
+    QModelIndex         parent(const QModelIndex& index)                                                 const override;
+    int                 rowCount(const QModelIndex& parent = QModelIndex())                              const override;
+    int                 columnCount(const QModelIndex& parent = QModelIndex())                           const override;
+    QVariant            data(const QModelIndex& index, int role = Qt::DisplayRole)                       const override;
+    Qt::ItemFlags       flags(const QModelIndex& index)                                                  const override;
+    QVariant            headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
 public:
+    explicit            ContactModel(QObject* parent = nullptr);
 
-    explicit ContactModel(QObject* parent = nullptr);
+    QList<Contact*>&    getList();
+    Contact*            getRoot();
+    Contact*            getFavorite();
 
-    // 필수 override
-    QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex& index) const override;
-    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
-    Qt::ItemFlags flags(const QModelIndex& index) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+    void                addContact(Contact* contact, Contact* parent);
+    void                removeContact(Contact* contact);
+    void                clearAll();
+    void                deleteTree(Contact*);
 
-    // 데이터 제어 함수
-    Contact* rootNode(); // 루트 노드 접근
-    void setRoot(Contact* root); // 외부에서 루트 설정
-    Contact* getNode(const QModelIndex& index) const; // QModelIndex → ContactNode*
-
-    QList<Contact*>&  getList();
-    Contact* getRoot();
-    Contact* getFavorite();
-
-    void addContact(Contact* contact, Contact* parent);
-    void removeContact(Contact* contact);
-    void clearAll();
-    void deleteTree(Contact*);
-    // void rebuildModelData();
-
-    void toggleFavorite(Contact* contact);
-    QModelIndex createIndexForNode(Contact* node) const;
-    QModelIndex indexForContact(Contact* contact) const;
-  };
-
+    void                toggleFavorite(Contact* contact);
+    QModelIndex         indexForContact(Contact* contact) const;
+};
 
 #endif // CONTACT_H

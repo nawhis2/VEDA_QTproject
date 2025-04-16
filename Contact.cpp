@@ -3,16 +3,16 @@
 ContactModel::ContactModel(QObject* parent)
     : QAbstractItemModel(parent)
 {
-    // 트리의 루트 노드 생성
-    root = new Contact{DataType::GROUP, "ROOT",  "", {}, 0, "", "", "", nullptr};
-
-    // 테스트용 자식 그룹/연락처 삽입
-    group_Favorite = new Contact{DataType::GROUP, "Favorite",  "", {}, 0, "", "","", "", root};
-    root->children.append(group_Favorite);
-
+    setBasicGroup();
 }
 
-// 자식 아이템 찾기
+void ContactModel::setBasicGroup()
+{
+    root = new Contact{DataType::GROUP, "ROOT",  "", {}, 0, "", "", "", nullptr};
+    group_Favorite = new Contact{DataType::GROUP, "Favorite",  "", {}, 0, "", "","", "", root};
+    root->children.append(group_Favorite);
+}
+
 QModelIndex ContactModel::index(int row, int column, const QModelIndex& parent) const
 {
     if (row < 0 || column < 0 || column >= columnCount(parent)) return QModelIndex();
@@ -24,7 +24,6 @@ QModelIndex ContactModel::index(int row, int column, const QModelIndex& parent) 
     return createIndex(row, column, child);
 }
 
-// 부모 찾기
 QModelIndex ContactModel::parent(const QModelIndex& index) const
 {
     if (!index.isValid()) return QModelIndex();
@@ -38,33 +37,29 @@ QModelIndex ContactModel::parent(const QModelIndex& index) const
     return createIndex(row, 0, parent);
 }
 
-// 자식 수
-int ContactModel::rowCount(const QModelIndex& parent) const {
+int ContactModel::rowCount(const QModelIndex& parent) const
+{
     Contact* node = parent.isValid() ? static_cast<Contact*>(parent.internalPointer()) : root;
     return node ? node->children.size() : 0;
 }
 
-
-// 열 수 (보통 1~3)
 int ContactModel::columnCount(const QModelIndex&) const
 {
-    return 1; // 이름, 전화번호
+    return 1;
 }
 
-
-// 	표시할 데이터
-
-QVariant ContactModel::data(const QModelIndex& index, int role) const {
+QVariant ContactModel::data(const QModelIndex& index, int role) const
+{
     if (!index.isValid()) return QVariant();
 
     Contact* node = static_cast<Contact*>(index.internalPointer());
 
-    if (role == Qt::DisplayRole) {
-        if (index.column() == 0) return node->name;
-        // if (index.column() == 1 && node->type == DataType::CONTACT) return node->phone;
-    }
+    if (role == Qt::DisplayRole)
+        if (index.column() == 0)
+            return node->name;
 
-    if (role == Qt::DecorationRole && index.column() == 0) {
+    if (role == Qt::DecorationRole && index.column() == 0)
+    {
         if (node->type == DataType::GROUP)
             return QIcon(":resources/file.png");
         else
@@ -74,7 +69,8 @@ QVariant ContactModel::data(const QModelIndex& index, int role) const {
     return QVariant();
 }
 
-Qt::ItemFlags ContactModel::flags(const QModelIndex& index) const {
+Qt::ItemFlags ContactModel::flags(const QModelIndex& index) const
+{
     if (!index.isValid()) return Qt::NoItemFlags;
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
@@ -82,10 +78,8 @@ Qt::ItemFlags ContactModel::flags(const QModelIndex& index) const {
 QVariant ContactModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    {
-        if (section == 0) return "연락처";
-        if (section == 1) return "전화번호";
-    }
+        if (section == 0)
+            return "연락처";
     return QVariant();
 }
 
@@ -109,7 +103,7 @@ void ContactModel::addContact(Contact* contact, Contact* parent)
     if (!parent) parent = root;
 
     int row = parent->children.size();
-    beginInsertRows(createIndexForNode(parent), row, row);
+    beginInsertRows(indexForContact(parent), row, row);
     parent->children.append(contact);
     contact->parent = parent;
     allContacts.append(contact);
@@ -118,13 +112,16 @@ void ContactModel::addContact(Contact* contact, Contact* parent)
 
 void ContactModel::removeContact(Contact* contact)
 {
-    if (!contact || !contact->parent || contact->type == DataType::GROUP) return;
+    if (!contact            ||
+        !contact->parent    ||
+         contact->type == DataType::GROUP)
+        return;
 
     Contact* parent = contact->parent;
     int row = parent->children.indexOf(contact);
     if (row < 0) return;
 
-    QModelIndex parentIndex = createIndexForNode(parent);
+    QModelIndex parentIndex = indexForContact(parent);
 
     beginRemoveRows(parentIndex, row, row);
     parent->children.removeAt(row);
@@ -138,14 +135,12 @@ void ContactModel::clearAll()
     beginResetModel();
     deleteTree(root);
 
-    root = new Contact{DataType::GROUP, "ROOT",  "", {}, 0, "", "", "", nullptr};
-    group_Favorite = new Contact{DataType::GROUP, "Favorite",  "", {}, 0, "", "","", "", root};
-
-    root->children.append(group_Favorite);
+    setBasicGroup();
 
     allContacts.clear();
     endResetModel();
 }
+
 
 void ContactModel::deleteTree(Contact* node)
 {
@@ -157,44 +152,52 @@ void ContactModel::deleteTree(Contact* node)
     delete node;
 }
 
-// 선택된 노드 → QModelIndex 생성 (트리뷰 삽입 시 parentIndex 필요)
-QModelIndex ContactModel::createIndexForNode(Contact* node) const
+void ContactModel::toggleFavorite(Contact* contact)
 {
-    if (node == root) return QModelIndex(); // 루트는 invalid index
-    Contact* parent = node->parent;
-    int row = parent ? parent->children.indexOf(node) : 0;
-    return createIndex(row, 0, node);
-}
-
-void ContactModel::toggleFavorite(Contact* contact) {
-    // 즐겨찾기 상태 토글
-    // contact->favorite = !contact->favorite;
-
     Contact* oldParent = contact->parent;
     int oldRow = oldParent->childIndex(contact);
     QModelIndex oldParentIndex = indexForContact(oldParent);
 
-    // 즐겨찾기 여부에 따라 삽입 대상 결정
     Contact* newParent = contact->favorite ? group_Favorite : root;
     int newRow = newParent->children.size();
     QModelIndex newParentIndex = indexForContact(newParent);
 
-    // 트리 뷰에 이동 알림
     beginMoveRows(oldParentIndex, oldRow, oldRow, newParentIndex, newRow);
     oldParent->removeChild(contact);
     newParent->insertChild(newRow, contact);
     endMoveRows();
-
-    // emit dataChanged(indexForContact(contact), indexForContact(contact), {Qt::DisplayRole});
 }
 
 QModelIndex ContactModel::indexForContact(Contact* contact) const
 {
     if (contact == nullptr || contact == root)
-        return QModelIndex(); // rootContact는 부모가 없으니 invalid 반환
+        return QModelIndex();
 
     Contact* parent = contact->parent;
-    int row = parent->childIndex(contact); // contact가 부모의 몇 번째 자식인지
+    int row = parent->childIndex(contact);
 
-    return createIndex(row, 0, contact); // column은 보통 0으로 처리
+    return createIndex(row, 0, contact);
+}
+
+int Contact::childIndex(Contact* child) const
+{
+    return children.indexOf(child);
+}
+
+
+void Contact::removeChild(Contact* child)
+{
+    children.removeAll(child);
+    child->setParent(nullptr);
+}
+
+void Contact::insertChild(int row, Contact* child)
+{
+    children.insert(row, child);
+    child->setParent(this);
+}
+
+void Contact::setParent(Contact* parent)
+{
+    this->parent = parent;
 }

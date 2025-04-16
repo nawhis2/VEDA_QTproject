@@ -373,7 +373,7 @@ void MainWindow::slot_search()
         SearchDialog* dialog = new SearchDialog(model->getList(), this);
 
     connect(dialog, &SearchDialog::contactSelected, this, [=](Contact* contact){
-        QModelIndex index = model->createIndexForNode(contact); // Contact*로 인덱스 생성
+        QModelIndex index = model->indexForContact(contact); // Contact*로 인덱스 생성
         if (index.isValid()) {
             currentSelected = index;
             setDetailWindow(index);
