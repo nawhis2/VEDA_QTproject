@@ -3,10 +3,6 @@
 
 #include <QDialog>
 #include "mainwindow.h"
-#include <QComboBox>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QTableView>
 #include <QStandardItemModel>
 #include <QMessageBox>
 #include <QHeaderView>
@@ -17,31 +13,25 @@ class SearchDialog;
 }
 QT_END_NAMESPACE
 
-struct Contact;
-
 class SearchDialog : public QDialog
 {
     Q_OBJECT
+
+    Ui::SearchDialog *uis;
+
+    QTableView* resultView;
+    QStandardItemModel* resultModel;
+    QList<Contact*> allContacts;
+
+private:
+    void SettableUi();
+    void SetModelView();
 
 public:
     SearchDialog(const QList<Contact*>& allContacts, QWidget* parent = nullptr);
 
 signals:
-    void contactSelected(Contact* contact); //연락처 알려주는 신호
-
-private slots:
-    void performSearch(const QString& keyword);
-
-private:
-    Ui::SearchDialog *uis;
-
-    // QComboBox* filterComboBox;
-    // QLineEdit*  keywordLineEdit;
-    // QPushButton*    searchButton;
-    QTableView* resultView;
-    QStandardItemModel* resultModel;
-    QList<Contact*> allContacts;
-
+    void contactSelected(Contact* contact);
 };
 
 #endif // SEARCHDIALOG_H

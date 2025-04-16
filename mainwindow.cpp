@@ -172,7 +172,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_Delete, &QPushButton::clicked, this, [=]() {
         if (!currentSelected.isValid())
         {
-            QMessageBox::warning(this, "삭제 오류", "삭제할 항목을 먼저 선택하세요.");
+            QMessageBox::warning(this, "Error", "삭제할 항목을 먼저 선택하세요.");
             return;
         }
 
