@@ -40,3 +40,62 @@ VEDA_QTproject/
 ├── resources.qrc      # Qt 리소스 정의
 └── README.md
 ```
+
+## 프로젝트 상세 기능 소개
+
+### 메인화면
+
+![alt text](./images/main.png)
+
+### 데이터 추가
+
+![alt text](./images/detail.png)
+
+### 데이터 제거
+
+![alt text](./image/delete1.png)
+
+![alt text](./image/delete2.png)
+
+### 데이터 검색
+
+![alt text](./image/searchdialog.png)
+
+![alt text](./image/searchresult.png)
+
+![alt text](./image/searchdetail.png)
+
+### 데이터 수정
+
+![alt text](./image/fixdata.png)
+
+![alt text](./image/fixcomplete.png)
+
+### 데이터 불러오기
+
+![alt text](./image/fileLoad.png)
+
+![alt text](./image/loadcomplete.png)
+
+### 데이터 저장
+
+![alt text](./image/savefile.png)
+
+![alt text](./image/savecomplete.png)
+
+### 생일자 알림
+
+![alt text](./image/birth.png)
+
+
+## 문제점
+
+1.
+
+2.
+
+3.
+
+
+## 소감
+
