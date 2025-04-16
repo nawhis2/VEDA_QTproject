@@ -1,6 +1,8 @@
+Github readme 로 읽으시기를 추천드립니다. https://github.com/nawhis2/VEDA_QTproject
+
 # VEDA_QTproject - 강한 연락처
 
-VEDA 강시환 X 한영서의 연락처 프로젝트입니다.
+VEDA 2기 3회차 1조 - 강시환 X 한영서의 연락처 프로젝트입니다.
 
 Qt 6.8.3 기반 연락처 관리 애플리케이션으로, 연락처의 그룹/서브그룹 구조와 세부 정보를 트리 뷰로 시각화하고, JSON 파일로 데이터를 저장 및 불러올 수 있습니다. 
 날씨 정보, SNS 프로필 연결 등 API 연동 기능도 일부 포함되어 있습니다.
